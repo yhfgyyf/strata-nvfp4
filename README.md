@@ -130,6 +130,8 @@ See [API.md](docs/API.md) for Responses, image and tool-call examples. For acces
 | Reasoning / tool parsing | Enabled, with loop recovery |
 | Images | Enabled, up to 1024 image tokens |
 
+For faster inference, adjust concurrency and the context limit to match your workload. Using fewer request slots or a lower context limit can free VRAM for more resident experts. Increase or decrease the prefill chunk from 8192 based on actual input length and available VRAM, and compare prefill and decode speed on your real requests.
+
 The installer writes `strata.json`. Data directories, port, context and request slots can be set during installation. Run `./setup.sh --help` for options.
 
 ## Changes from Strata
