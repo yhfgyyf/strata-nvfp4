@@ -1,0 +1,8 @@
+# CPU-only PyTorch is installed separately by setup.sh.
+numpy==2.3.5
+transformers==5.12.1
+huggingface-hub==1.32.0
+modelscope==1.40.1
+safetensors==0.8.0
+sentencepiece==0.2.2
+protobuf==6.33.6
