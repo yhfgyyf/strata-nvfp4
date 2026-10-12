@@ -15,3 +15,17 @@ Prefill uses the engine's complete input-processing timer. Decode uses its gener
 All 18 records completed 512 output tokens, with no repeated-tail or long-digit loop detected. The synthetic-prompt checks do not establish general model accuracy. Output content, workload and MTP acceptance rate affect decode speed.
 
 Data: [performance.json](performance.json). The supplied expert ranking has SHA256 `8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf`; the draft vocabulary has SHA256 `0fa45afd44c300f5407b49f5dd13544b0e555200e1a0d2c1de15c54167bd41e3`. Model loading and warmup are excluded.
+
+## Single-slot, 32K context
+
+An earlier test on October 12 used the same model, machine, engine binary and expert ranking, with W4A16, R96, prefill chunk 8192 and INT8 KV. Reducing the server allocation from two request slots / 262144 context tokens to one slot / 32768 context tokens increased startup resident experts from 9,978 to 14,361. Each row below has three cold requests, one client, no prefix reuse and exactly 512 output tokens. The profiler and transfer ledger were disabled during speed measurements.
+
+| Server allocation | Input tokens | Prefill tokens/s | Decode tokens/s | TTFT seconds |
+|---|---:|---:|---:|---:|
+| Two slots / 256K context | 8192 | 2855.35 | 102.8 | 2.9058 |
+| One slot / 32K context | 8192 | 3599.30 | 117.7 | 2.3133 |
+| One slot / 32K context | 32248 | 3828.11 | 114.0 | 8.5026 |
+
+For the identical 8192-token prompts, the ratio of medians improved by 26.1% for prefill and 14.5% for decode. The 32768-token window includes input, output and eight safety tokens, so its longest tested input was 32248 tokens. The 3828 prefill result and 117.7 decode result belong to different input lengths.
+
+These are R96 configuration-level observations, separate from the R256 measurements above. Context, request-slot capacity and warmup changed together, and this supplementary test had no returning control run; it does not isolate the speedup caused by expert residency alone. All six single-slot requests retained the baseline's 5/6 synthetic-check score and had no repeated-tail or long-digit loop detected.

@@ -29,6 +29,8 @@ GB 使用十进制，GiB 使用二进制。运行数据需要额外生成，连�
 
 **权重大小会影响推理速度。** 固定显存预算下，单个专家的权重越大，GPU 能常驻的专家越少。缓存未命中会增加 PCIe 搬运或 CPU 计算，可能大幅降低 prefill 和 decode 吞吐。下载大小不等于显存占用：PLE 在主机侧通过 mmap 读取，dense、KV cache 和工作缓冲也会占用显存。
 
+同模型、同机器下，将服务从 2 个请求槽／256K 上下文改为 1 个请求槽／32K 上下文，腾出的显存让 GPU 常驻专家由 9,978 增至 14,361。此前 W4A16 R96、chunk=8192、输出 512 token 的测试中，8,192 token 输入的 prefill 中位数从 2,855 提升到 3,599 token/s（+26.1%），decode 从 102.8 提升到 117.7 token/s（+14.5%）。32,248 token 输入的中位数则为 prefill 3,828、decode 114.0 token/s。测试条件见[单请求槽测量记录](docs/PERFORMANCE.md#single-slot-32k-context)。
+
 ## 机器
 
 | 部件 | 实测配置 |

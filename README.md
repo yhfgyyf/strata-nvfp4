@@ -27,6 +27,8 @@ GB is decimal; GiB is binary. Generated data is additional to the download. Allo
 
 **Weight size affects speed.** At a fixed VRAM budget, larger expert weights mean fewer experts can stay on the GPU. More cache misses require PCIe transfers or CPU computation, which can sharply reduce both prefill and decode throughput. Download size is not GPU memory usage: PLE is memory-mapped on the host, while dense weights, KV cache and working buffers also share the GPU budget.
 
+Even with the same model and machine, reducing the server from two request slots / 256K context to one slot / 32K context made room for more GPU-resident experts: 9,978 → 14,361. In a W4A16 R96 test with chunk 8192 and 512 output tokens, 8,192 input tokens saw median prefill rise from 2,855 to 3,599 tokens/s (+26.1%) and decode from 102.8 to 117.7 tokens/s (+14.5%). With 32,248 input tokens, the medians were 3,828 tokens/s prefill and 114.0 tokens/s decode. See the [single-slot measurements](docs/PERFORMANCE.md#single-slot-32k-context) for test conditions.
+
 ## Machine
 
 | Component | Tested configuration |
