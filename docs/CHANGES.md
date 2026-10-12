@@ -9,7 +9,7 @@ Based on Strata 0.1.40.3, retaining its C++/CUDA engine, Python server and web i
 | `src/kernels/cpu/nvfp4_*.cpp` | CPU NVFP4 expert computation |
 | `src/program/generate.cpp`, `src/core/expert_source.cpp` | Auxiliary CPU selection and NVFP4 runtime support |
 | `src/prefill/prefill.cpp` | Configurable prefill ring, optional GU/H compaction and transfer accounting |
-| `serve/server.py`, `serve/frontend.py` | Reasoning-loop, long-digit-loop and tool-call parsing/recovery |
+| `serve/server.py`, `serve/frontend.py` | Reasoning-loop, long-digit-loop and tool-call parsing/recovery; honor the configured listen port |
 | `tools/pack_modelopt_*.py` | NVIDIA expert, dense, PLE and MTP data generation |
 | `tools/install.py`, shell entry points | Installation and W4A16 R256 defaults |
 
