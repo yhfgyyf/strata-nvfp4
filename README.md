@@ -118,7 +118,8 @@ See [API.md](docs/API.md) for Responses, image and tool-call examples. For acces
 
 | Setting | Value |
 |---|---|
-| Expert computation | W4A16, NVFP4 fused MoE |
+| Prefill computation | W4A16 |
+| Decode computation | W4A16, NVFP4 fused MoE |
 | Prefill chunk / ring slots | 8192 / 256 |
 | Context limit / request slots | 262144 / 2 |
 | KV cache | INT8 |

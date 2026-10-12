@@ -120,7 +120,8 @@ Responses、图片和工具调用示例见 [API.md](docs/API.md)。对外提供�
 
 | 参数 | 默认值 |
 |---|---|
-| 专家计算 | W4A16，NVFP4 fused MoE |
+| Prefill 计算 | W4A16 |
+| Decode 计算 | W4A16，NVFP4 fused MoE |
 | Prefill chunk／ring | 8192／256 |
 | 上下文／请求槽 | 262144／2 |
 | KV cache | INT8 |
