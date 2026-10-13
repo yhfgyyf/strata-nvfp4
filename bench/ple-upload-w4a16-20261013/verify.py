@@ -18,7 +18,7 @@ def verify():
     for name, digest in manifest['sha256'].items():
         path = SOURCE / name
         assert path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == digest, name
-    build = read(HERE / 'evidence-public/step1-v3-r1/build/build.json')
+    build = read(HERE / 'evidence-public/step1-v3-r1/build.public.json')
     for obj in build['objects']:
         assert hashlib.sha256((SOURCE / obj['source']).read_bytes()).hexdigest() == obj['sha256']
     for name, digest in build['header_sha256'].items():
