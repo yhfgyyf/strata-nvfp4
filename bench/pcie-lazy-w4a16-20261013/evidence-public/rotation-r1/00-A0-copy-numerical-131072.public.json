@@ -1,0 +1,23 @@
+{
+  "input_tokens": 131072,
+  "output_tokens": 1,
+  "reused": 0,
+  "logits_sha256": "e8b33f18902e734265e8efbc5b8b70646931c031247a7e3f3ddb30306627f838",
+  "logits_values": 248320,
+  "finite": true,
+  "top1": 90,
+  "payload_sha256": "f879f31b84e604c688b4216a6f78f750f5cf67e2f48b0d80d9326149d74682af",
+  "diagnostic": {
+    "kind": "diagnostic_logits",
+    "input_tokens": 131072,
+    "token_ids_count": 131072,
+    "token_ids_fnv64": "5a63ebb9bbed0890",
+    "host_res_after_first_verify_fnv64": "258c66cc80d268dc",
+    "command": "BGEN",
+    "adapt_nowait": 1,
+    "adapt_lag": 1,
+    "adapt_every": 4,
+    "adapt_swaps": 96
+  },
+  "scope": "All FP32 vocabulary logits after an identical teacher-forced prompt; diagnostic, excluded from speed rows"
+}

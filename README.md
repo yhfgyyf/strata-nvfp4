@@ -54,6 +54,20 @@ Measured on October 12, 2026: one request at a time, no reused prefix, six sampl
 
 Inputs were synthetic Chinese, English and code prompts. Decode speed varies with the output and MTP acceptance rate. These checks are not a general accuracy benchmark. See [measurement details](docs/PERFORMANCE.md).
 
+### 256K context comparison
+
+October 14, 2026: one client, 512 output tokens, zero prefix reuse, three runs per input length, arithmetic means. Both configurations use a 262144-token context limit, W4A16, R256, chunk 8192 and INT8 KV. No Nsight or GPU profiler was used during speed tests.
+
+| Input tokens | Two slots: prefill | Two slots: decode | One slot: prefill | One slot: decode |
+|---:|---:|---:|---:|---:|
+| 8,192 | 3,277.8 | 105.67 | 3,905.9 | 115.00 |
+| 32,768 | 3,588.4 | 104.80 | 4,286.8 | 111.93 |
+| 131,072 | 3,644.4 | 103.13 | 4,276.1 | 112.67 |
+
+Rates are tokens/s. The two-slot column is the current default with RAM exchange-buffer rotation and 10,295 resident GPU experts. The one-slot column is the separately measured NOWAIT baseline with rotation off and 13,377 resident experts; fewer reserved slots leave more VRAM for expert weights. Both were measured with a single active request. The default still allows two concurrent requests.
+
+These are separate configuration runs, not an isolated test of request slots. In the matched two-slot rotation comparison, 32K decode increased by 5.5% relative to the surrounding controls; the 8K/128K differences were smaller than control drift. Prefill was essentially unchanged. The October 12 table uses six-sample medians; this table uses three-run means. See [conditions and individual records](docs/PERFORMANCE.md#256k-context-comparison).
+
 ## Install
 
 Linux x86-64, Python 3.12+, a C++ compiler and CUDA Toolkit are required. See [INSTALL.md](docs/INSTALL.md) for prerequisites and separate model/data directories.
@@ -130,6 +144,7 @@ See [API.md](docs/API.md) for Responses, image and tool-call examples. For acces
 | Prefix caching | Enabled |
 | Auxiliary CPU selection | Automatic |
 | PLE uploads / CPU row cache | Early upload, raw FP8 bytes, 64 MiB raw-row cache |
+| RAM expert exchange | Mapped exchange-buffer rotation enabled |
 | Reasoning / tool parsing | Enabled, with loop recovery |
 | Images | Enabled, up to 1024 image tokens |
 
@@ -147,6 +162,16 @@ The installer writes `strata.json`. Data directories, port, context and request 
 - Add model-specific installation, data generation and W4A16 R256 defaults.
 
 See [CHANGES.md](docs/CHANGES.md) for the source and script entry points.
+
+## Changelog
+
+### 2026-10-14
+
+- Enable RAM exchange-buffer rotation in the installer and the server's `gpu_schedule.sh` defaults. Expert swaps avoid the host commit copy; H2D/D2H transfers remain.
+- Add three-run throughput comparisons for one and two request slots at 256K context.
+- Retain NVFP4 weights, W4A16 fused MoE, R256, chunk 8192 and PLE early/raw uploads with a 64 MiB CPU row cache.
+
+The [scheduler patch](bench/pcie-lazy-w4a16-20261013/gpu_schedule-strata-defaults.patch) contains the Strata change for the existing server script. Full measurements are in the [implementation report](bench/pcie-lazy-w4a16-20261013/REPORT.md).
 
 ## License
 

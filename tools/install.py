@@ -128,7 +128,7 @@ def config(args, pack, mtp, vision):
                STRATA_WATCHDOG_S="180", STRATA_PLE_MMAP_RANDOM="1", STRATA_NVFP4_FUSED_MOE="2",
                STRATA_PLE_EARLY_UPLOAD="1", STRATA_PLE_RAW_UPLOAD="1", STRATA_PLE_RAW_CACHE_MIB="64",
                STRATA_PREFILL_DEQUANT_AHEAD="1", STRATA_NVFP4_DEQUANT_FAST="1",
-               STRATA_PREFILL_COMPACT_GUH="0", STRATA_PREFILL_NVFP4_FP8="0")
+               STRATA_PREFILL_COMPACT_GUH="0", STRATA_PREFILL_NVFP4_FP8="0", STRATA_EXCHANGE_ROTATE="1")
     native = ["--pack", str(pack), "--native", str(pack / "model.stidx"), "--ple-gguf", str(pack / "ple.stidx"),
               "--ple-io", "mmap", "--expert-profile", str(pack / "expert-profile.bin"), "--expert-cache", "auto",
               "--resident-experts", "--prefill", "8192", "--spec", "4", "--max-context", str(args.context),

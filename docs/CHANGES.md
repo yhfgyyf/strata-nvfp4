@@ -16,3 +16,7 @@ Based on Strata 0.1.40.3, retaining its C++/CUDA engine, Python server and web i
 Prefill defaults to `STRATA_PREFILL_NVFP4=fp16` and `STRATA_PREFILL_RING=256`; decode uses `STRATA_NVFP4_FUSED_MOE=2`. The chunk size is 8192. Expert-cache allocation and VRAM reserve follow the engine's automatic policy, with INT8 KV. The model-specific installer enables `STRATA_PLE_EARLY_UPLOAD=1`, `STRATA_PLE_RAW_UPLOAD=1` and `STRATA_PLE_RAW_CACHE_MIB=64`. Prefix caching, batch MTP, images and reasoning recovery are enabled.
 
 Buffer compaction and transfer accounting remain available in the source, disabled by default. FP8 GEMM is not part of the default computation path.
+
+The installer also enables `STRATA_EXCHANGE_ROTATE=1`. Eligible mapped RAM exchange buffers change ownership instead of copying expert bytes during commit; H2D/D2H still run. The [W4A16 comparison](../bench/pcie-lazy-w4a16-20261013/REPORT.md) records the observed 32K decode benefit and the drift limits at 8K/128K. PCIe fraction remains zero, and WAIT/LAG2 and async adaptation are not enabled by default.
+
+The server's existing `gpu_schedule.sh` now sets the same rotation default explicitly. Its [Strata-only patch](../bench/pcie-lazy-w4a16-20261013/gpu_schedule-strata-defaults.patch) adds one environment line; [verification](../bench/pcie-lazy-w4a16-20261013/evidence-public/scheduler-defaults-20261014.public.json) records the backup, syntax check, idempotent start and unchanged loaded configuration. The current process already had rotation enabled, so it was kept running.

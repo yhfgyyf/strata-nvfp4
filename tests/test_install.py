@@ -22,6 +22,7 @@ class InstallTests(unittest.TestCase):
         self.assertEqual(c["env"]["STRATA_PLE_EARLY_UPLOAD"], "1")
         self.assertEqual(c["env"]["STRATA_PLE_RAW_UPLOAD"], "1")
         self.assertEqual(c["env"]["STRATA_PLE_RAW_CACHE_MIB"], "64")
+        self.assertEqual(c["env"]["STRATA_EXCHANGE_ROTATE"], "1")
         self.assertNotIn("--vram-reserve-mib", c["args"])
         for key, value in (("--prefill", "8192"), ("--max-context", "262144"), ("--kv", "int8")):
             self.assertEqual(c["args"][c["args"].index(key) + 1], value)

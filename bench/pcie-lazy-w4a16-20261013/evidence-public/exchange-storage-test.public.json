@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "exchanges": 12304,
+  "source_hashes": {
+    "bench/pcie-lazy-w4a16-20261013/exchange_storage_test.cpp": "12a656c2a5db74d5cc464ea2205c2b00f777204f2b5157e13ce05f361b9d55c3",
+    "include/strata/core/exchange_storage.hpp": "30e4c42ac268fc30af4501ee2036d040173a5fbb67de3429caddd8285f2eeaed"
+  },
+  "command": "clang++ -std=c++17 -O2 -pthread -Iinclude bench/pcie-lazy-w4a16-20261013/exchange_storage_test.cpp -o <temporary-binary>; <temporary-binary>",
+  "source": "Retained strata-nvfp4-main/tests/core/exchange_storage_test.cpp; actual-blob-size case changed from Q8 to NVFP4 2764816 bytes",
+  "scope": "Host-only byte/alias/ownership/concurrent-residency-reader checks; simulated transfer completion, no CUDA events or GPU execution",
+  "time": 1791913065.050675
+}

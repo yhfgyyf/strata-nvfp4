@@ -1,0 +1,8 @@
+{
+  "time": 1791915246.570119,
+  "source_section_sha256": "5e3e964053e1b4c708dfd50126f798a0e357ba6cc162a5d935dae163068eed2a",
+  "rendered_section_sha256": "26faa6a9497c251ffc1ba637908c9e9078e8e93c8e51ffa1b04e26c575215d21",
+  "remote_document_sha256": "97974761e24ace82a2e2d831df15e5ea9e9771a5368db8a59e49b94aa6010a3a",
+  "report_sha256": "3506809e0b94a53fe69ee5f37cf32f2056de3aba5426d2c3fd5cb8e8dce80cdf",
+  "scope": "Local report mirrored; server-relative links adjusted only within section 28, source contents retained; local Markdown targets verified"
+}

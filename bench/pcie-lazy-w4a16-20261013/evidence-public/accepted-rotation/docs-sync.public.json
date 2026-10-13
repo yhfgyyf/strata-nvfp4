@@ -1,0 +1,8 @@
+{
+  "time": 1791915109.8514555,
+  "old_remote_document_sha256": "be9ee57c83b18094e12279f9a250e706a7537109ac3980d8d5d8812dfbcaa4d5",
+  "new_remote_document_sha256": "9b1b8bf2c0fef39e8b92594907a8bff9c3faecfe941527751ae3af8b573f869a",
+  "section_sha256": "5e3e964053e1b4c708dfd50126f798a0e357ba6cc162a5d935dae163068eed2a",
+  "report_sha256": "3506809e0b94a53fe69ee5f37cf32f2056de3aba5426d2c3fd5cb8e8dce80cdf",
+  "scope": "Only section 28 appended/replaced; other remote document text retained; backup byte-verified"
+}

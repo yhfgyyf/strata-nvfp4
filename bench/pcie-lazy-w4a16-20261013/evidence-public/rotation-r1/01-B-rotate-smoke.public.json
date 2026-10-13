@@ -1,0 +1,36 @@
+{
+  "complete": true,
+  "usage": {
+    "prompt_tokens": 38,
+    "completion_tokens": 64,
+    "total_tokens": 102,
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    }
+  },
+  "metrics": {
+    "projection": null,
+    "time": 1791912674.2391813,
+    "duration_s": 1.1,
+    "finish": "length",
+    "prompt_tokens": 38,
+    "reused": 0,
+    "output_tokens": 64,
+    "prompt_total": 38,
+    "prompt_read": 38,
+    "reasoning_recoveries": 0,
+    "reasoning_repeat_coverage": 0.0,
+    "engine_generated": 64,
+    "prompt_ms": 312.6,
+    "decode_ms": 801.4,
+    "decode_tok_s": 79.9,
+    "hit_rate": 0.873,
+    "pcie_share": 0.0,
+    "ram_blobs": 4344,
+    "file_blobs": 0,
+    "file_mb": 0,
+    "drafts_offered": 41,
+    "drafts_accepted": 31
+  },
+  "timeout_s": 90
+}

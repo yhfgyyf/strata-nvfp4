@@ -1,0 +1,43 @@
+{
+  "loaded": true,
+  "native_pid": 3610903,
+  "files": {
+    "/home/tc/Strata-nvfp4/strata-qwen38-flash-next-nvidia-30001.json": "a93493f9f8983c31e75441be5cedc25aa88fd7b0dc212bad823d3696ea3c9b20",
+    "/home/tc/wildrig/gpu_schedule.sh": "dad2b50badccd179a1e5b99c3d401f9252a0b8404d254259361372fb326f360f",
+    "/home/tc/Strata-nvfp4/engine/strata-nvfp4-w4a16-r256-ple": "4ae23d2d995866b3ddf98525b0de700d3fb48e289135fea39f5643d2cd55af78",
+    "/home/tc/Strata-data/packs/nvidia-nvfp4-raw/expert-profile.bin": "8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf",
+    "/home/tc/Strata-data/packs/nvidia-nvfp4-raw/model.stidx": "a880347d2217df6bd859ca5dfaf7198df67ae055bac8dd656ff45fc88ffe0ac0",
+    "/home/tc/Strata-data/packs/nvidia-nvfp4-raw/ple.stidx": "1d4d2781b9e3a2c388497fc332bebdad0ebacaf177eb34a2ba776d21cd88d4b1",
+    "/home/tc/Strata-data/mtp-nvidia-nvfp4/rt/draft_vocab.bin": "0fa45afd44c300f5407b49f5dd13544b0e555200e1a0d2c1de15c54167bd41e3"
+  },
+  "engine": {
+    "model": "Qwen3.8-flash-next",
+    "max_context": 262144,
+    "images": true,
+    "version": "0.1.40.3",
+    "context": 262144,
+    "kv": "int8",
+    "kv_resident": 0,
+    "expert_slots": 10295,
+    "expert_cache_mib": 27147,
+    "expert_slots_primary": 10295,
+    "expert_cache_primary_mib": 27147,
+    "spec": 6,
+    "mtp_max": 4,
+    "lookup": 3,
+    "vram_free_mib": 338,
+    "cvec": 0,
+    "arena_mib": 41576,
+    "pool_workers": 15,
+    "pcie_frac": "0.00",
+    "spec_min_p": "0.70",
+    "conversation_cache_mib": 0,
+    "conversation_cache_slots": 4,
+    "conversation_cache_min_free_mib": 2560,
+    "tail_role_token": -1,
+    "vram_elastic": 0,
+    "batch_slots": 2,
+    "slot_cache": 1,
+    "engine": "0.1.40.3"
+  }
+}
