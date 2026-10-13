@@ -1,9 +1,0 @@
-{
-  "status": "cancelled_by_user",
-  "session": "2026-10-13_10-49-35",
-  "native_chat_id": "01a11e90-03d7-7ed0-b84a-87717cc185ee",
-  "cancel_state_sha256": "27ca542c4a40973e40e6d18e5b45e3341f1df2eb899ca76d92334d65138a8777",
-  "cancel_script": "/Users/yang/.codex/skills/humanize/scripts/cancel-rlcr-session.sh",
-  "scope": "Current audit loop only; W4A16 implementation and benchmarks continue",
-  "recorded_utc": "2026-10-13T06:12:18.794936+00:00"
-}

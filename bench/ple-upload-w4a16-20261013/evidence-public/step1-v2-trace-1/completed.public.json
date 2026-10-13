@@ -1,5 +1,0 @@
-{
-  "complete": true,
-  "instrumented": true,
-  "scope": "One cold8K/512 request per arm; not unprofiled throughput"
-}

@@ -66,7 +66,7 @@ October 14, 2026: one client, 512 output tokens, zero prefix reuse, three runs p
 
 Rates are tokens/s. The two-slot column is the current default with RAM exchange-buffer rotation and 10,295 resident GPU experts. The one-slot column is the separately measured NOWAIT baseline with rotation off and 13,377 resident experts; fewer reserved slots leave more VRAM for expert weights. Both were measured with a single active request. The default still allows two concurrent requests.
 
-These are separate configuration runs, not an isolated test of request slots. In the matched two-slot rotation comparison, 32K decode increased by 5.5% relative to the surrounding controls; the 8K/128K differences were smaller than control drift. Prefill was essentially unchanged. The October 12 table uses six-sample medians; this table uses three-run means. See [conditions and individual records](docs/PERFORMANCE.md#256k-context-comparison).
+These are separate configuration runs, not an isolated test of request slots. In the matched two-slot rotation comparison, 32K decode increased by 5.5% relative to the surrounding controls; the 8K/128K differences were smaller than control drift. Prefill was essentially unchanged. The October 12 table uses six-sample medians; this table uses three-run means. See [measurement conditions](docs/PERFORMANCE.md#256k-context-comparison).
 
 ## Install
 
@@ -167,11 +167,7 @@ See [CHANGES.md](docs/CHANGES.md) for the source and script entry points.
 
 ### 2026-10-14
 
-- Enable RAM exchange-buffer rotation in the installer and the server's `gpu_schedule.sh` defaults. Expert swaps avoid the host commit copy; H2D/D2H transfers remain.
-- Add three-run throughput comparisons for one and two request slots at 256K context.
-- Retain NVFP4 weights, W4A16 fused MoE, R256, chunk 8192 and PLE early/raw uploads with a 64 MiB CPU row cache.
-
-The [scheduler patch](bench/pcie-lazy-w4a16-20261013/gpu_schedule-strata-defaults.patch) contains the Strata change for the existing server script. Full measurements are in the [implementation report](bench/pcie-lazy-w4a16-20261013/REPORT.md).
+- Enable `STRATA_EXCHANGE_ROTATE=1` in the installer defaults. Eligible mapped RAM exchange buffers change ownership during expert swaps, avoiding the host commit copy; H2D/D2H transfers remain.
 
 ## License
 

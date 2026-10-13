@@ -68,7 +68,7 @@ GB 使用十进制，GiB 使用二进制。运行数据需要额外生成，连�
 
 单位为token/s。两槽列是当前默认配置，开启RAM交换缓冲区轮换，GPU常驻专家10,295个。单槽列是单独测量的NOWAIT基线，rotation关闭，常驻专家13,377个；少预留一个请求槽，让更多显存用于专家权重。两组测速时都只有一个活动请求，默认服务仍支持两个并发请求。
 
-这两列来自不同配置的独立运行，不是只改变请求槽数的对照。两槽rotation的配对测试中，32K decode相对前后基线均值提升5.5%；8K/128K差异小于基线漂移，prefill基本持平。上方10月12日表是六样本中位数，本表是三次平均值。[详细条件和逐次记录](docs/PERFORMANCE.md#256k-context-comparison)。
+这两列来自不同配置的独立运行，不是只改变请求槽数的对照。两槽rotation的配对测试中，32K decode相对前后基线均值提升5.5%；8K/128K差异小于基线漂移，prefill基本持平。上方10月12日表是六样本中位数，本表是三次平均值。[测试条件](docs/PERFORMANCE.md#256k-context-comparison)。
 
 ## 安装
 
@@ -169,11 +169,7 @@ Responses、图片和工具调用示例见 [API.md](docs/API.md)。对外提供�
 
 ### 2026-10-14
 
-- 安装器和服务器`gpu_schedule.sh`默认开启RAM交换缓冲区轮换。专家交换省去host commit复制，H2D/D2H搬运仍保留。
-- 增加256K上下文下单槽与两槽服务的三次平均吞吐对照。
-- 保留NVFP4权重、W4A16 fused MoE、R256、chunk8192，以及PLE提前/raw上传和64MiB CPU行缓存。
-
-服务器现有脚本的Strata改动见[调度脚本补丁](bench/pcie-lazy-w4a16-20261013/gpu_schedule-strata-defaults.patch)，完整测量见[实施报告](bench/pcie-lazy-w4a16-20261013/REPORT.md)。
+- 安装器默认设置 `STRATA_EXCHANGE_ROTATE=1`。符合条件的 mapped RAM 交换缓冲区在专家交换时转移所有权，省去 host commit 复制；H2D/D2H 搬运仍保留。
 
 ## 许可证
 
