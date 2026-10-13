@@ -19,6 +19,10 @@ class InstallTests(unittest.TestCase):
         self.assertEqual(c["env"]["STRATA_PREFILL_NVFP4"], "fp16")
         self.assertEqual(c["env"]["STRATA_PREFILL_RING"], "256")
         self.assertEqual(c["env"]["STRATA_NVFP4_FUSED_MOE"], "2")
+        self.assertEqual(c["env"]["STRATA_PLE_EARLY_UPLOAD"], "1")
+        self.assertEqual(c["env"]["STRATA_PLE_RAW_UPLOAD"], "1")
+        self.assertEqual(c["env"]["STRATA_PLE_RAW_CACHE_MIB"], "64")
+        self.assertNotIn("--vram-reserve-mib", c["args"])
         for key, value in (("--prefill", "8192"), ("--max-context", "262144"), ("--kv", "int8")):
             self.assertEqual(c["args"][c["args"].index(key) + 1], value)
         self.assertTrue(c["vision"]["gpu"])

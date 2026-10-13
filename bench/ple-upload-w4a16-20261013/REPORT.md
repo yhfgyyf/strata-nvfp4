@@ -1,6 +1,6 @@
 # W4A16 PLE upload and row cache
 
-Status: implementation and the requested comparisons completed.135 cold full512/reuse0 samples were retained across five campaigns. The original production W4A16 R256 binary remains the default; the new PLE controls are opt-in.
+Status: implementation and the requested comparisons completed.135 cold full512/reuse0 samples were retained across five campaigns. Those campaigns restored the original production W4A16 R256 binary. On October 13, the user subsequently authorized enabling all three PLE controls in production and removing the explicit 1536 MiB reserve; deployment and validation are recorded separately in [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Scope
 
@@ -14,11 +14,13 @@ For each independent change, A1/B/A2 each run three matched fixed input seeds at
 
 ## Implemented controls
 
-| Control | Effect | Default |
+| Control | Effect | Native engine default |
 |---|---|---|
 | `STRATA_PLE_EARLY_UPLOAD` | Dedicated upload stream, ready/consumed generations, bounded future-layer expert submissions until PLE is ready on the device |0|
 | `STRATA_PLE_RAW_UPLOAD` | Upload raw E4M3 bytes, exact FP32 expansion/scale on GPU, existing FP32 projection |0|
 | `STRATA_PLE_RAW_CACHE_MIB` | Bounded eight-way set-associative raw-row cache, LRU within each set, stable within-batch dedup and restoration before upload |0|
+
+The model-specific installer and current production configuration enable the two upload switches and use a 64 MiB cache. The native engine defaults remain opt-in for other callers. Performance rows below describe their saved configurations; statements about retaining production defaults refer to the campaign decision before the later authorized deployment.
 
 The raw transport requires a mapped E4M3 table with a finite nonnegative scale. With raw upload disabled, Direct IO and other formats retain their original path; explicit raw upload rejects unsupported tables. Cache keys are logical row IDs in the owning table generation; misses retain the physical shard map. Closing/reopening clears cached rows. This cache is separate from the OS page cache.
 

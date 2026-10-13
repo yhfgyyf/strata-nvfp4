@@ -1,0 +1,46 @@
+{
+  "complete": true,
+  "tests": [
+    {
+      "name": "install",
+      "exit_code": 0,
+      "summary": "......\n----------------------------------------------------------------------\nRan 6 tests in 0.005s\n\nOK",
+      "command": [
+        "/home/tc/Strata-nvfp4/.venv/bin/python",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests"
+      ]
+    },
+    {
+      "name": "serving",
+      "exit_code": 0,
+      "summary": ".........................s..........................\n----------------------------------------------------------------------\nRan 55 tests in 15.701s\n\nOK (skipped=1)",
+      "command": [
+        "/home/tc/Strata-nvfp4/.venv/bin/python",
+        "-m",
+        "unittest",
+        "serve.test_vram",
+        "serve.test_runconfig",
+        "serve.test_responses"
+      ]
+    },
+    {
+      "name": "packing",
+      "exit_code": 0,
+      "summary": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.041s\n\nOK",
+      "command": [
+        "/home/tc/miniconda3/envs/llm/bin/python3.12",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools",
+        "-p",
+        "test_pack_modelopt.py"
+      ]
+    }
+  ]
+}
