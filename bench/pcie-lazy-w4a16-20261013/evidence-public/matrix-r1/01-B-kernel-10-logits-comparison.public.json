@@ -1,0 +1,29 @@
+{
+  "8192": {
+    "values": 248320,
+    "finite": true,
+    "top1_equal": true,
+    "maximum_absolute_error": 0.9704809188842773,
+    "rmse": 0.1153130902069262,
+    "relative_rmse": 0.06789662746701744,
+    "cosine": 0.9976929118608973
+  },
+  "32768": {
+    "values": 248320,
+    "finite": true,
+    "top1_equal": true,
+    "maximum_absolute_error": 0.6315294504165649,
+    "rmse": 0.11247210846112861,
+    "relative_rmse": 0.06469594812981322,
+    "cosine": 0.9979050250833005
+  },
+  "131072": {
+    "values": 248320,
+    "finite": true,
+    "top1_equal": true,
+    "maximum_absolute_error": 0.6823332905769348,
+    "rmse": 0.13758888175117182,
+    "relative_rmse": 0.07938894074962824,
+    "cosine": 0.9968920105917611
+  }
+}

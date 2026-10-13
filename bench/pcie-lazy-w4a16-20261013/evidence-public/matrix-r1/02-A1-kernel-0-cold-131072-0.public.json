@@ -1,0 +1,85 @@
+{
+  "label": "02-A1-kernel-0-cold-131072-0",
+  "input_tokens": 131072,
+  "reused": 0,
+  "read_tokens": 131072,
+  "prompt_ms": 35874,
+  "prefill_tps": 3653.67675754028,
+  "output_tokens": 512,
+  "full_output": true,
+  "decode_native_tps": 98.6,
+  "decode_delta_tps": 98.88964298321125,
+  "ttft_s": 36.122867497149855,
+  "elapsed_s": 41.3010979690589,
+  "native": {
+    "projection": null,
+    "time": 1791905354.194981,
+    "duration_s": 41.1,
+    "finish": "length",
+    "prompt_tokens": 131072,
+    "reused": 0,
+    "output_tokens": 512,
+    "prompt_total": 131072,
+    "prompt_read": 131072,
+    "reasoning_recoveries": 0,
+    "reasoning_repeat_coverage": 0.0,
+    "engine_generated": 512,
+    "prompt_ms": 35873.9,
+    "decode_ms": 5190.7,
+    "decode_tok_s": 98.6,
+    "hit_rate": 0.941,
+    "pcie_share": 0.0,
+    "ram_blobs": 16379,
+    "file_blobs": 0,
+    "file_mb": 0,
+    "drafts_offered": 346,
+    "drafts_accepted": 268
+  },
+  "quality": {
+    "score": 5,
+    "maximum": 6,
+    "correct": {
+      "arithmetic": true,
+      "code_result": false,
+      "translation": true,
+      "early": true,
+      "middle": true,
+      "late": true
+    },
+    "json_prefix_present": true,
+    "periodic_tail": false,
+    "long_digit_loop": false,
+    "longest_digit_run": 0,
+    "tool_calls": 0,
+    "valid_tool_json": 0,
+    "characters": 2427
+  },
+  "output_sha256": "3dc61b08865ce4bdaeb95c7f3d4af4bdd1a6f6df91f027cdf25bec5f4da0e1fc",
+  "payload_sha256": "4cce0acf54eef27edf2806a6f8ce174b4f6b55e68e334f3a34886b502d178a2b",
+  "config_sha256": "7798be469985a0a71ed44e4d8cc1be7bf927595924f8c36fbdc7faf7202096ec",
+  "binary_sha256": "4ae23d2d995866b3ddf98525b0de700d3fb48e289135fea39f5643d2cd55af78",
+  "profile_sha256": "8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf",
+  "native_prompt_segments": [
+    [
+      131072,
+      0,
+      131072,
+      35874
+    ]
+  ],
+  "counters_delta": {
+    "major_faults": 510,
+    "minor_faults": 260411,
+    "cpu_ticks": 15374,
+    "read_bytes": 2088960
+  },
+  "ledger": [],
+  "actual_decode_path": "GEN",
+  "decode_summary": "strata decode timing: 244 windows, avg T 2.42, 2.10 tokens/window, 21.27 ms/window = verify 16.93 (GPU-reach wait 12.83 + per-layer host 3.25 [plan 0.08 actq 0.05 jobs 0.01 CPU 2.73] + stage 0.37) + commit/emit 0.03 + draft 2.17; per layer-window: CPU experts 1.24 (1.43 entries), VRAM hits 22.75, PCIe 0.00",
+  "per_layer_window": {
+    "cpu_experts": 1.24,
+    "cpu_entries": 1.43,
+    "vram_hits": 22.75,
+    "pcie_experts": 0.0
+  }
+}

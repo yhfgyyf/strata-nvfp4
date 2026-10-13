@@ -1,0 +1,8 @@
+{
+  "auditor": "gpt-6-astra",
+  "effort": "max",
+  "scope": "One answer audit; no RLCR restart",
+  "audit_result_sha256": "fec4d51858f824752c428c5a8a4cfe5d728d7cd95e8b7630c514d5ae47c0e0e5",
+  "findings": 5,
+  "applied_in": "PLAN.md"
+}

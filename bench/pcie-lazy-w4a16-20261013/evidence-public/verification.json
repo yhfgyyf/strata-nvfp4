@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "run": "matrix-r1",
+      "arms": 11,
+      "cold_requests": 99,
+      "restoration_files_match": true,
+      "means_and_stdev_recomputed": true
+    },
+    {
+      "run": "lazy-r1",
+      "arms": 5,
+      "cold_requests": 45,
+      "restoration_files_match": true,
+      "means_and_stdev_recomputed": true
+    },
+    {
+      "run": "rotation-r1",
+      "arms": 5,
+      "cold_requests": 45,
+      "restoration_files_match": true,
+      "means_and_stdev_recomputed": true
+    }
+  ],
+  "saved_live_checks_validated": 10,
+  "scope": "Offline public-evidence validation; no GPU run or API health check"
+}

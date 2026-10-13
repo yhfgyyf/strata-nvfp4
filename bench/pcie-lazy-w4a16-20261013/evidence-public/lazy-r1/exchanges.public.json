@@ -1,0 +1,527 @@
+{
+  "expert_blob_bytes": 2764816,
+  "arms": [
+    {
+      "label": "00-A0-single-nowait",
+      "rotation_activation": [],
+      "snapshots": [
+        {
+          "label": "00-A0-single-nowait-warmup-0",
+          "time": 1791909734.278388,
+          "cumulative_exchanges": 1797,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "059ad8dbc0f3b88d082dbb58b30175d7dc0a0bc0b51be3c560cf782ec9fed4b7"
+        },
+        {
+          "label": "00-A0-single-nowait-warmup-1",
+          "time": 1791909741.4331396,
+          "cumulative_exchanges": 2578,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "e6e30dd5c123e1a8f3c10c3fc73149e78b33981e1c99fbacda064318df45e7ab"
+        },
+        {
+          "label": "00-A0-single-nowait-warmup-2",
+          "time": 1791909754.0802343,
+          "cumulative_exchanges": 2954,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "751a0b42161697750ab446c4cb821e159dea6b467bd843810f1bcd2dc95b37ec"
+        },
+        {
+          "label": "00-A0-single-nowait-cold-8192-0",
+          "time": 1791909789.5212767,
+          "cumulative_exchanges": 3314,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "e70a38ec8e68a65cfe33da7cdb43eccce259a61f996594156a19ccedd37a446b"
+        },
+        {
+          "label": "00-A0-single-nowait-cold-32768-0",
+          "time": 1791909796.2682233,
+          "cumulative_exchanges": 3650,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "7e3acd99281be1d59da505b1ca2b44f61e51fb425a1f44bd2cd431e4ea901051"
+        },
+        {
+          "label": "00-A0-single-nowait-cold-131072-0",
+          "time": 1791909808.909566,
+          "cumulative_exchanges": 3979,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "0151865ce6459e1b6602759733b520e8097d75426681437988a798b9775c5eb4"
+        },
+        {
+          "label": "00-A0-single-nowait-cold-131072-1",
+          "time": 1791909844.6694963,
+          "cumulative_exchanges": 4152,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "fa4619230ab105412af3162be5c47f496f15f3041f2e6f2f6c44d173ac06c7aa"
+        },
+        {
+          "label": "00-A0-single-nowait-cold-32768-1",
+          "time": 1791909880.130926,
+          "cumulative_exchanges": 4427,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "90c0c75fac0e6f9349375860f24f00db928ed92ffd201c5b72cac87885ca95fb"
+        },
+        {
+          "label": "00-A0-single-nowait-cold-8192-1",
+          "time": 1791909892.7250674,
+          "cumulative_exchanges": 4769,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "2e3635cc111480d521da468f8bd27d89205c7e52486d55f2c21ec6e7f57d3108"
+        },
+        {
+          "label": "00-A0-single-nowait-cold-32768-2",
+          "time": 1791909899.6733599,
+          "cumulative_exchanges": 5089,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "750433b5101feba709f075d4a9b24fba5aae33c89f6c027bdf0a7a706b9765d5"
+        },
+        {
+          "label": "00-A0-single-nowait-cold-131072-2",
+          "time": 1791909912.3032634,
+          "cumulative_exchanges": 5341,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "4e5f4086c4173246c216c945c9a4edfbc34b3b8f544eee0732fc336b9787c2e1"
+        },
+        {
+          "label": "00-A0-single-nowait-cold-8192-2",
+          "time": 1791909947.755762,
+          "cumulative_exchanges": 5681,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "72e57fe060ce8b8d830cc5c3c347bfb966a418e385917aee3df9db90b475f4ec"
+        }
+      ],
+      "cold_interval_committed_exchanges": 2727,
+      "avoided_host_memcpy_payload_bytes": 0
+    },
+    {
+      "label": "01-B-single-lag2",
+      "rotation_activation": [],
+      "snapshots": [
+        {
+          "label": "01-B-single-lag2-warmup-0",
+          "time": 1791910138.212303,
+          "cumulative_exchanges": 1789,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "bb0b673abdbb29a4b767f35150194a6689502eaaefba95118a7d638755ad7954"
+        },
+        {
+          "label": "01-B-single-lag2-warmup-1",
+          "time": 1791910145.3967776,
+          "cumulative_exchanges": 2520,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "7a57a36c2b0067e5d6c4874214c8cc6ba9c759ae3d6b0b539d3f93e5cc75aac9"
+        },
+        {
+          "label": "01-B-single-lag2-warmup-2",
+          "time": 1791910158.2825015,
+          "cumulative_exchanges": 2820,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "8e2f62f16daf295484426427915e4304168f5cd94194b8f7a0b0df5e3e3b558b"
+        },
+        {
+          "label": "01-B-single-lag2-cold-8192-0",
+          "time": 1791910193.6641078,
+          "cumulative_exchanges": 3247,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "5a6daf6b4bb600cc215574028353a234e3fcdf15bb084c74ebea51ad49000afb"
+        },
+        {
+          "label": "01-B-single-lag2-cold-32768-0",
+          "time": 1791910200.5157073,
+          "cumulative_exchanges": 3689,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "988c7fed2be5b1160f63c55237090be9c1a67de02be3a6fd277752ef8ef41f76"
+        },
+        {
+          "label": "01-B-single-lag2-cold-131072-0",
+          "time": 1791910213.113481,
+          "cumulative_exchanges": 4000,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "870305bc887eceaf22dc205faafb261b3b89b739e6abd9867b4c386f4b6111f8"
+        },
+        {
+          "label": "01-B-single-lag2-cold-131072-1",
+          "time": 1791910248.6642346,
+          "cumulative_exchanges": 4130,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "f80de7b0724c321b981cccde65fade9e7ab66b81accb510d4c34894444611bb3"
+        },
+        {
+          "label": "01-B-single-lag2-cold-32768-1",
+          "time": 1791910284.0891626,
+          "cumulative_exchanges": 4438,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "7049a9ae9feaf409048db49e71015159536b0aec5710392a3daa74663c20d456"
+        },
+        {
+          "label": "01-B-single-lag2-cold-8192-1",
+          "time": 1791910296.349428,
+          "cumulative_exchanges": 4867,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "a5434c819989efd865cb885b36f1afd70e740a071dd95eeced06214027319a05"
+        },
+        {
+          "label": "01-B-single-lag2-cold-32768-2",
+          "time": 1791910303.066411,
+          "cumulative_exchanges": 5265,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "2305f40fcbc434fe9825f5bfa92af2fb661c96ce2c04370f6383576582802b77"
+        },
+        {
+          "label": "01-B-single-lag2-cold-131072-2",
+          "time": 1791910315.580089,
+          "cumulative_exchanges": 5500,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "d16f513fc45ef799d329b785f8b62a5ad2564a4b2b5fc9d485d2d8f4da00bc4b"
+        },
+        {
+          "label": "01-B-single-lag2-cold-8192-2",
+          "time": 1791910350.994657,
+          "cumulative_exchanges": 5997,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "be66ed5eaf1096c9c1e430eec489d82c51ab80c51f7b176b69df64ff2a68fcee"
+        }
+      ],
+      "cold_interval_committed_exchanges": 3177,
+      "avoided_host_memcpy_payload_bytes": 0
+    },
+    {
+      "label": "02-A1-single-nowait",
+      "rotation_activation": [],
+      "snapshots": [
+        {
+          "label": "02-A1-single-nowait-warmup-0",
+          "time": 1791910541.3620162,
+          "cumulative_exchanges": 1797,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "afd936a22df3d940b621b8b6b59a9eee98f4d013bee6645ee92c315e54c419ca"
+        },
+        {
+          "label": "02-A1-single-nowait-warmup-1",
+          "time": 1791910548.5600348,
+          "cumulative_exchanges": 2384,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "077276f6ba85782e95065793ac1efd526d01d4ca96c56a405773872de6ecbf90"
+        },
+        {
+          "label": "02-A1-single-nowait-warmup-2",
+          "time": 1791910561.1111894,
+          "cumulative_exchanges": 2886,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "4b44b05ed6dc51273f01d989754e6b509d7e70987ea3a1be4615532b04e04dcf"
+        },
+        {
+          "label": "02-A1-single-nowait-cold-8192-0",
+          "time": 1791910596.5506291,
+          "cumulative_exchanges": 3261,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "3dc3c8c27a63d9ba40a76dec5b500b85e68cfd3d1fb112c6494c1fa50d99078b"
+        },
+        {
+          "label": "02-A1-single-nowait-cold-32768-0",
+          "time": 1791910603.3523042,
+          "cumulative_exchanges": 3596,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "25721fe544510d49e5498e2c5dc11436688a4595bb8850f3989664578d7282c2"
+        },
+        {
+          "label": "02-A1-single-nowait-cold-131072-0",
+          "time": 1791910615.895764,
+          "cumulative_exchanges": 4016,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "b6b86a3ed9cbadc7c32a26fdef66103391dd2793b04536e9e480789c6e704137"
+        },
+        {
+          "label": "02-A1-single-nowait-cold-131072-1",
+          "time": 1791910651.905263,
+          "cumulative_exchanges": 4259,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "ce460597c1352a43f2c5ad30976671e7ed5a475c82d30611e4afcbcbbbc139ab"
+        },
+        {
+          "label": "02-A1-single-nowait-cold-32768-1",
+          "time": 1791910687.6178243,
+          "cumulative_exchanges": 4573,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "cb19aee1307f6c6c339260231505906b73159453a33f9666663c865e262b4caf"
+        },
+        {
+          "label": "02-A1-single-nowait-cold-8192-1",
+          "time": 1791910700.0014524,
+          "cumulative_exchanges": 4972,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "24c55d66acdd525721e025ccb7d0c0f7a15cc73109b31fa07d3b0233b650a1ee"
+        },
+        {
+          "label": "02-A1-single-nowait-cold-32768-2",
+          "time": 1791910706.9021206,
+          "cumulative_exchanges": 5348,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "6b66c80f5a7669d3a6bfb1fe1a0ad01d36bc553fa8a6a000fce0040b15d31ea7"
+        },
+        {
+          "label": "02-A1-single-nowait-cold-131072-2",
+          "time": 1791910719.4499772,
+          "cumulative_exchanges": 5543,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "e1f77d6efc05ad419db2e8c4b044e2511e56198b9366d2b55d81ce6128a70ed3"
+        },
+        {
+          "label": "02-A1-single-nowait-cold-8192-2",
+          "time": 1791910754.9084003,
+          "cumulative_exchanges": 5860,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "d1f88651a4ee29c666fe0651880676efb1b909c232614c7c5d9ea5c5ea4b604e"
+        }
+      ],
+      "cold_interval_committed_exchanges": 2974,
+      "avoided_host_memcpy_payload_bytes": 0
+    },
+    {
+      "label": "03-B-single-async",
+      "rotation_activation": [],
+      "snapshots": [
+        {
+          "label": "03-B-single-async-warmup-0",
+          "time": 1791910945.220753,
+          "cumulative_exchanges": 1864,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "5fdb185985e774d8190e085b15d9ab2e9a058dc16c803d9631d8770ef6cec1f3"
+        },
+        {
+          "label": "03-B-single-async-warmup-1",
+          "time": 1791910951.8913128,
+          "cumulative_exchanges": 2607,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "0640bf4eee60e31be02ac5961c9d5887a30e4537534118ea98ac06c66a4d1ddd"
+        },
+        {
+          "label": "03-B-single-async-warmup-2",
+          "time": 1791910964.2814286,
+          "cumulative_exchanges": 2895,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "e033bc62cafd160f787c54c8850c7d7f61fd1214dc060727749b60b43436bcae"
+        },
+        {
+          "label": "03-B-single-async-cold-8192-0",
+          "time": 1791910999.729034,
+          "cumulative_exchanges": 3273,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "a272420bf1bfc54fea5e3d6f50176e487145e899a6942ba7a1bcf2960133747b"
+        },
+        {
+          "label": "03-B-single-async-cold-32768-0",
+          "time": 1791911006.2983189,
+          "cumulative_exchanges": 3650,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "8696ac00d1974c0da8044e3e121c955b4b93cc05036209363a6518ec9cf914e6"
+        },
+        {
+          "label": "03-B-single-async-cold-131072-0",
+          "time": 1791911018.6427102,
+          "cumulative_exchanges": 3882,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "ead086e178bf0a3f42a65b14744d9478582a2c4a07c198094c3154543cb0b4bd"
+        },
+        {
+          "label": "03-B-single-async-cold-131072-1",
+          "time": 1791911054.1514022,
+          "cumulative_exchanges": 4132,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "1c4e7ec496426bad36585ba5acb684b3a0ac5b24529ff65f270693f4636af324"
+        },
+        {
+          "label": "03-B-single-async-cold-32768-1",
+          "time": 1791911089.629444,
+          "cumulative_exchanges": 4417,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "a9fb257bf7cdeebe5683d80521739a6a5dadf7b50083b8b9d0e90ef67ed0d8ab"
+        },
+        {
+          "label": "03-B-single-async-cold-8192-1",
+          "time": 1791911101.9071608,
+          "cumulative_exchanges": 4819,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "e7191b7eb121d942d2612def43db250978df3c5e629aaf29a2979b445a547bf1"
+        },
+        {
+          "label": "03-B-single-async-cold-32768-2",
+          "time": 1791911108.6352317,
+          "cumulative_exchanges": 5216,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "a0a5caa6fc6a9484c70c05aa9645af1a71fee3cf74297ab7bbfdfe3f7bdc5aad"
+        },
+        {
+          "label": "03-B-single-async-cold-131072-2",
+          "time": 1791911121.0666118,
+          "cumulative_exchanges": 5393,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "d04259432c741ea221856e7220c48358ca29304527afca5cef62bd0668e5f3eb"
+        },
+        {
+          "label": "03-B-single-async-cold-8192-2",
+          "time": 1791911156.6099236,
+          "cumulative_exchanges": 5750,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "fd040099f5aaf2fc61371583550e64f79ad2e1e26f8432496df6f5f06026edcd"
+        }
+      ],
+      "cold_interval_committed_exchanges": 2855,
+      "avoided_host_memcpy_payload_bytes": 0
+    },
+    {
+      "label": "04-A2-single-nowait",
+      "rotation_activation": [],
+      "snapshots": [
+        {
+          "label": "04-A2-single-nowait-warmup-0",
+          "time": 1791911347.04746,
+          "cumulative_exchanges": 1807,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "d178f32ddc390b5f8b02a0cc8ba5000364c442225497ab995eaee9d22b6f2ab1"
+        },
+        {
+          "label": "04-A2-single-nowait-warmup-1",
+          "time": 1791911354.1137388,
+          "cumulative_exchanges": 2512,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "8f2a2ad74fb9525866164fd1802bfbfd04bd348e13ff9f1e630fe6e84d88ffaa"
+        },
+        {
+          "label": "04-A2-single-nowait-warmup-2",
+          "time": 1791911366.8112957,
+          "cumulative_exchanges": 2903,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "27fd506e6d1f209f09db5b1038b86f14412f9af5d577fcfaa88f79323362bedf"
+        },
+        {
+          "label": "04-A2-single-nowait-cold-8192-0",
+          "time": 1791911402.1950896,
+          "cumulative_exchanges": 3267,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "5b5926d853e027abdb120edc33bb649fcadb3f3658969cd73e2803c1790214f1"
+        },
+        {
+          "label": "04-A2-single-nowait-cold-32768-0",
+          "time": 1791911408.8909352,
+          "cumulative_exchanges": 3626,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "64ac51f6a78eed3119d4f90f6a298ce65d4ccd464de657330f0967b411f6be1e"
+        },
+        {
+          "label": "04-A2-single-nowait-cold-131072-0",
+          "time": 1791911421.7510784,
+          "cumulative_exchanges": 3919,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "05b82981d3583945a29de940d65cf674a1453596f010643f0b4fbba645d73422"
+        },
+        {
+          "label": "04-A2-single-nowait-cold-131072-1",
+          "time": 1791911457.529075,
+          "cumulative_exchanges": 4170,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "564b3309b502930ae0d5f298d42c550788695a46323422031e409a4108744337"
+        },
+        {
+          "label": "04-A2-single-nowait-cold-32768-1",
+          "time": 1791911493.0957868,
+          "cumulative_exchanges": 4486,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "ecdd6e49e4e018681784bf5713ab009e5a3a88a847d6b9b51a82b58a3eb41098"
+        },
+        {
+          "label": "04-A2-single-nowait-cold-8192-1",
+          "time": 1791911505.4665523,
+          "cumulative_exchanges": 4848,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "66e5f4f74a078c531dcce7f069862df1f5a4719488b96b131340301279179232"
+        },
+        {
+          "label": "04-A2-single-nowait-cold-32768-2",
+          "time": 1791911512.2532554,
+          "cumulative_exchanges": 5178,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "8809bb99b54512498030ba5d344bc07371cb59ac71be74f0455357775fab8b0c"
+        },
+        {
+          "label": "04-A2-single-nowait-cold-131072-2",
+          "time": 1791911524.7054949,
+          "cumulative_exchanges": 5442,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "7e04ccf25c97122409d63e76a1af2ef555f6134f17a8deead32b9b3013c4cccc"
+        },
+        {
+          "label": "04-A2-single-nowait-cold-8192-2",
+          "time": 1791911560.1017723,
+          "cumulative_exchanges": 5718,
+          "resident_ram_gib": 32.67,
+          "file_blob_reads": 0,
+          "engine_log_sha256": "98fc1044fce6b91c49d6989779501eb258499d30a4287bbcd9077f0af9213c74"
+        }
+      ],
+      "cold_interval_committed_exchanges": 2815,
+      "avoided_host_memcpy_payload_bytes": 0
+    }
+  ],
+  "scope": "Committed adaptive exchanges between warmup-2 and last cold completion snapshots. Pending commits may cross request boundaries. Rotation skips host commit memcpy; payload is not physical DRAM traffic and does not remove H2D/D2H or prove critical-path savings.",
+  "collector_sha256": "b302a2ee4be8b337be09f5172043dd104b05912aa372a2aef8b9a504c705d3dd"
+}

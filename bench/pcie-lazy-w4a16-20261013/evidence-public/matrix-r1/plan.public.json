@@ -1,0 +1,57 @@
+[
+  {
+    "label": "A0-kernel-0",
+    "mode": "kernel",
+    "frac": 0
+  },
+  {
+    "label": "B-kernel-10",
+    "mode": "kernel",
+    "frac": 0.1
+  },
+  {
+    "label": "A1-kernel-0",
+    "mode": "kernel",
+    "frac": 0
+  },
+  {
+    "label": "B-kernel-20",
+    "mode": "kernel",
+    "frac": 0.2
+  },
+  {
+    "label": "A2-kernel-0",
+    "mode": "kernel",
+    "frac": 0
+  },
+  {
+    "label": "B-dma-0",
+    "mode": "dma",
+    "frac": 0
+  },
+  {
+    "label": "A3-kernel-0",
+    "mode": "kernel",
+    "frac": 0
+  },
+  {
+    "label": "B-dma-10",
+    "mode": "dma",
+    "frac": 0.1
+  },
+  {
+    "label": "A4-kernel-0",
+    "mode": "kernel",
+    "frac": 0
+  },
+  {
+    "label": "B-dma-20",
+    "mode": "dma",
+    "frac": 0.2
+  },
+  {
+    "label": "A5-kernel-0",
+    "mode": "kernel",
+    "frac": 0
+  }
+]

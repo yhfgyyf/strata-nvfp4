@@ -1,0 +1,8 @@
+{
+  "time": 1791913178.503655,
+  "native_pid": 3597266,
+  "VmHWM_kb": 47647380,
+  "VmRSS_kb": 47019268,
+  "VmSwap_kb": 0,
+  "scope": "Mid-arm native-process /proc high-water/RSS snapshot; includes mapped pages, not system RAM or final arm peak"
+}
