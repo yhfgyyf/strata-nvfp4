@@ -18,3 +18,5 @@ Prefill defaults to `STRATA_PREFILL_NVFP4=fp16` and `STRATA_PREFILL_RING=256`; d
 Buffer compaction and transfer accounting remain available in the source, disabled by default. FP8 GEMM is not part of the default computation path.
 
 The installer also enables `STRATA_EXCHANGE_ROTATE=1`. Eligible mapped RAM exchange buffers change ownership instead of copying expert bytes during commit; H2D/D2H still run. The [W4A16 comparison](../bench/pcie-lazy-w4a16-20261013/REPORT.md) records the observed 32K decode benefit and the drift limits at 8K/128K. PCIe fraction remains zero, and WAIT/LAG2 and async adaptation are not enabled by default.
+
+The server's existing `gpu_schedule.sh` now sets the same rotation default explicitly. Its [Strata-only patch](../bench/pcie-lazy-w4a16-20261013/gpu_schedule-strata-defaults.patch) adds one environment line; [verification](../bench/pcie-lazy-w4a16-20261013/evidence-public/scheduler-defaults-20261014.public.json) records the backup, syntax check, idempotent start and unchanged loaded configuration. The current process already had rotation enabled, so it was kept running.
