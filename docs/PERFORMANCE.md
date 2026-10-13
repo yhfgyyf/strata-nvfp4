@@ -32,7 +32,7 @@ These are R96 configuration-level observations, separate from the R256 measureme
 
 ## 256K context comparison
 
-October 14, 2026, same NVIDIA model and machine: context262144, W4A16, R256, chunk8192, INT8 KV, MTP, PLE early/raw upload and its 64 MiB CPU raw-row cache. One client, three warmups excluded, three cold speed requests per size, output512 and zero prefix reuse. Rates below are arithmetic means; the once-per-request native host timing summary and 1 Hz NVML sampling were uniform. No Nsight or GPU profiler ran during speed tests.
+October 14, 2026, same NVIDIA model and machine: context limit 262144, W4A16, R256, prefill chunk 8192, INT8 KV, MTP, PLE early/raw upload and its 64 MiB CPU raw-row cache. One client, three warmups excluded, three cold speed requests per size, 512 output tokens and zero prefix reuse. Rates below are arithmetic means; the once-per-request native host timing summary and 1 Hz NVML sampling were uniform. No Nsight or GPU profiler ran during speed tests.
 
 | Input tokens | Two slots, rotation on: prefill | Decode | TTFT s | One slot, rotation off: prefill | Decode | TTFT s |
 |---:|---:|---:|---:|---:|---:|---:|
@@ -46,6 +46,6 @@ The table compares complete configurations from separate series, not the isolate
 
 For rotation alone in the same two-slot A/B/A series, 32K decode is 104.80 tok/s versus the surrounding A mean of 99.33 (+5.50%); signed control drift is -0.87%. At 8K/128K, the observed +3.31%/+5.10% changes are smaller than absolute control drift of 6.40%/6.38%, so gains remain inconclusive. Prefill changes are -0.58%/-0.13%/-0.05%. The 32K decode sample standard deviations for A0/B/A1 are 4.08/1.87/5.68 tok/s; three trials do not establish a statistically guaranteed improvement.
 
-All compared outputs contain512 tokens, with the same 5/6 synthetic checks and no screened repeat/long-digit loops. The code-result check already fails in the baseline; these checks are not general model accuracy. First-token full-vocabulary logits for the rotation candidate match its control at all three lengths.
+All compared outputs contain 512 tokens, with the same 5/6 synthetic checks and no screened repeat/long-digit loops. The code-result check already fails in the baseline; these checks are not general model accuracy. First-token full-vocabulary logits for the rotation candidate match its control at all three lengths.
 
 Individual values, sample standard deviations, timing/quality receipts and source/build identities are in the [two-slot summary](../bench/pcie-lazy-w4a16-20261013/evidence-public/rotation-r1/summary.json) and [single-slot summary](../bench/pcie-lazy-w4a16-20261013/evidence-public/lazy-r1/summary.json). See the [full report](../bench/pcie-lazy-w4a16-20261013/REPORT.md) for the independent PCIe/lazy comparisons and deployment checks.
