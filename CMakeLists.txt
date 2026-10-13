@@ -531,7 +531,11 @@ if(STRATA_ENABLE_CUDA OR STRATA_ENABLE_HIP)
   # what composes them into a token.  No tokenizer - the prompt arrives as ids - because Gate C1 compares logits
   # against llama.cpp on the SAME ids and a tokenizer on one side of that comparison is a second variable.
   # plan v0.3 P5: batched prompt processing (tensor-core GEMMs through cuBLAS).
-  add_library(strata_prefill STATIC src/prefill/gemm.cu src/prefill/kernels.cu src/prefill/prefill.cpp)
+  add_library(strata_prefill STATIC src/prefill/gemm.cu src/prefill/kernels.cu src/prefill/ple_transport.cu src/prefill/prefill.cpp)
+  # Preserve CPU FP32 scale arithmetic, including subnormal products, for raw PLE transport.
+  if(STRATA_ENABLE_CUDA AND NOT STRATA_HIP_GFX906)
+    set_source_files_properties(src/prefill/ple_transport.cu PROPERTIES COMPILE_OPTIONS "--ftz=false")
+  endif()
   if(STRATA_ENABLE_HIP)
     # #313: the RDNA3 WMMA GEMMs include hip_runtime.h: AMD builds only (a CUDA build never sees this file)
     target_sources(strata_prefill PRIVATE src/prefill/wmma_gemm.cu)

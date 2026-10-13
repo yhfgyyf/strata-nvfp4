@@ -1,0 +1,262 @@
+{
+  "complete": true,
+  "records": 27,
+  "comparisons": [
+    {
+      "input_tokens": 8192,
+      "pairs": [
+        {
+          "case": 0,
+          "change_percent": {
+            "prefill_tps": 0.25391803129000134,
+            "decode_native_tps": 2.930207778369742
+          },
+          "control_drift_percent": {
+            "prefill_tps": 0.2733307301835186,
+            "decode_native_tps": 1.1789924973204746
+          },
+          "quality_same": true
+        },
+        {
+          "case": 1,
+          "change_percent": {
+            "prefill_tps": 0.7854123127189139,
+            "decode_native_tps": -3.4376603386352067
+          },
+          "control_drift_percent": {
+            "prefill_tps": 0.5475166210402671,
+            "decode_native_tps": 6.900212314225063
+          },
+          "quality_same": true
+        },
+        {
+          "case": 2,
+          "change_percent": {
+            "prefill_tps": 0.19578677157627844,
+            "decode_native_tps": 0.7313505607021042
+          },
+          "control_drift_percent": {
+            "prefill_tps": -0.15624999999999112,
+            "decode_native_tps": 5.923694779116473
+          },
+          "quality_same": true
+        }
+      ],
+      "median_by_arm": {
+        "A1": {
+          "prefill_tps": 3190.031152647975,
+          "decode_native_tps": 94.2
+        },
+        "B": {
+          "prefill_tps": 3208.773991382687,
+          "decode_native_tps": 96.6
+        },
+        "A2": {
+          "prefill_tps": 3200.0,
+          "decode_native_tps": 100.7
+        }
+      },
+      "median_change_percent": {
+        "prefill_tps": 0.25391803129000134,
+        "decode_native_tps": 0.7313505607021042
+      },
+      "mean_by_arm": {
+        "A1": {
+          "prefill_tps": 3193.7826022078098,
+          "decode_native_tps": 95.7
+        },
+        "B": {
+          "prefill_tps": 3210.467244066094,
+          "decode_native_tps": 98.0
+        },
+        "A2": {
+          "prefill_tps": 3200.8349625925744,
+          "decode_native_tps": 100.2
+        }
+      },
+      "change_from_arm_means_percent": {
+        "prefill_tps": 0.4115480412255845,
+        "decode_native_tps": 0.05104645227156368
+      }
+    },
+    {
+      "input_tokens": 32768,
+      "pairs": [
+        {
+          "case": 0,
+          "change_percent": {
+            "prefill_tps": 0.43608846321512296,
+            "decode_native_tps": 1.675392670157061
+          },
+          "control_drift_percent": {
+            "prefill_tps": -0.2962336013542122,
+            "decode_native_tps": 8.515283842794762
+          },
+          "quality_same": true
+        },
+        {
+          "case": 1,
+          "change_percent": {
+            "prefill_tps": 0.4508324344908221,
+            "decode_native_tps": 3.1491997934951055
+          },
+          "control_drift_percent": {
+            "prefill_tps": -0.010559662090825483,
+            "decode_native_tps": 3.4663865546218364
+          },
+          "quality_same": true
+        },
+        {
+          "case": 2,
+          "change_percent": {
+            "prefill_tps": 0.3134805845698807,
+            "decode_native_tps": -0.20304568527919065
+          },
+          "control_drift_percent": {
+            "prefill_tps": -0.24346353339683713,
+            "decode_native_tps": -1.4112903225806495
+          },
+          "quality_same": true
+        }
+      ],
+      "median_by_arm": {
+        "A1": {
+          "prefill_tps": 3477.0797962648558,
+          "decode_native_tps": 95.2
+        },
+        "B": {
+          "prefill_tps": 3483.7337869445037,
+          "decode_native_tps": 98.3
+        },
+        "A2": {
+          "prefill_tps": 3466.7795175624206,
+          "decode_native_tps": 98.5
+        }
+      },
+      "median_change_percent": {
+        "prefill_tps": 0.43608846321512296,
+        "decode_native_tps": 1.675392670157061
+      },
+      "mean_by_arm": {
+        "A1": {
+          "prefill_tps": 3471.5716964714275,
+          "decode_native_tps": 95.33333333333333
+        },
+        "B": {
+          "prefill_tps": 3482.2591322716235,
+          "decode_native_tps": 98.43333333333334
+        },
+        "A2": {
+          "prefill_tps": 3465.194655471299,
+          "decode_native_tps": 98.56666666666666
+        }
+      },
+      "change_from_arm_means_percent": {
+        "prefill_tps": 0.4000698768345856,
+        "decode_native_tps": 1.5299982809008128
+      }
+    },
+    {
+      "input_tokens": 131072,
+      "pairs": [
+        {
+          "case": 0,
+          "change_percent": {
+            "prefill_tps": 0.5409205741858658,
+            "decode_native_tps": 5.73248407643312
+          },
+          "control_drift_percent": {
+            "prefill_tps": 0.005380249105524371,
+            "decode_native_tps": 10.502793296089386
+          },
+          "quality_same": true
+        },
+        {
+          "case": 1,
+          "change_percent": {
+            "prefill_tps": 0.44130439317882075,
+            "decode_native_tps": -2.5432349949135347
+          },
+          "control_drift_percent": {
+            "prefill_tps": 0.034940600978328185,
+            "decode_native_tps": -0.6085192697768749
+          },
+          "quality_same": true
+        },
+        {
+          "case": 2,
+          "change_percent": {
+            "prefill_tps": 0.29632416766049996,
+            "decode_native_tps": 1.3184584178498993
+          },
+          "control_drift_percent": {
+            "prefill_tps": -0.21472474971145905,
+            "decode_native_tps": 2.2564102564102573
+          },
+          "quality_same": true
+        }
+      ],
+      "median_by_arm": {
+        "A1": {
+          "prefill_tps": 3525.6206794523496,
+          "decode_native_tps": 97.5
+        },
+        "B": {
+          "prefill_tps": 3537.801290183271,
+          "decode_native_tps": 99.6
+        },
+        "A2": {
+          "prefill_tps": 3522.8726549481266,
+          "decode_native_tps": 98.9
+        }
+      },
+      "median_change_percent": {
+        "prefill_tps": 0.44130439317882075,
+        "decode_native_tps": 1.3184584178498993
+      },
+      "mean_by_arm": {
+        "A1": {
+          "prefill_tps": 3524.357735961199,
+          "decode_native_tps": 95.2
+        },
+        "B": {
+          "prefill_tps": 3538.3501270130446,
+          "decode_native_tps": 98.43333333333334
+        },
+        "A2": {
+          "prefill_tps": 3522.3076693410794,
+          "decode_native_tps": 98.86666666666667
+        }
+      },
+      "change_from_arm_means_percent": {
+        "prefill_tps": 0.42622782545076454,
+        "decode_native_tps": 1.4428031604259761
+      }
+    }
+  ],
+  "decision": "retain-production-default; prefill gain below3percent; decode attribution limited by control drift up to10.5percent",
+  "precision": "B/A2 numerical gate passed before speed requests",
+  "quality_example": {
+    "score": 5,
+    "maximum": 6,
+    "correct": {
+      "arithmetic": true,
+      "code_result": false,
+      "translation": true,
+      "early": true,
+      "middle": true,
+      "late": true
+    },
+    "json_prefix_present": true,
+    "periodic_tail": false,
+    "long_digit_loop": false,
+    "longest_digit_run": 0,
+    "tool_calls": 0,
+    "valid_tool_json": 0,
+    "characters": 2555
+  },
+  "restored": true,
+  "binary_sha256": "71a758dece4752568864b1c1b07b839b700736073a5da401a13af1096e79ebc8",
+  "prefill_source_sha256": "386103f02d1b712da0f44a3d4805f54a8da82bbaf07ad1d0978064d0bf6f86a1",
+  "reporting_rule": "Latest user instruction: arithmetic mean of3 trials per input length and arm; original individual rows/paired controls retained"
+}

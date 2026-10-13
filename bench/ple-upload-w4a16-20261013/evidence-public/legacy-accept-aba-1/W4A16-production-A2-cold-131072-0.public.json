@@ -1,0 +1,82 @@
+{
+  "label": "W4A16-production-A2-cold-131072-0",
+  "input_tokens": 131072,
+  "reused": 0,
+  "read_tokens": 131072,
+  "prompt_ms": 37202,
+  "prefill_tps": 3523.251438094726,
+  "output_tokens": 512,
+  "full_output": true,
+  "decode_native_tps": 100.5,
+  "decode_delta_tps": 100.72184491715569,
+  "ttft_s": 37.438846363918856,
+  "elapsed_s": 42.522937207017094,
+  "native": {
+    "projection": null,
+    "time": 1791877784.3033726,
+    "duration_s": 42.3,
+    "finish": "length",
+    "prompt_tokens": 131072,
+    "reused": 0,
+    "output_tokens": 512,
+    "prompt_total": 131072,
+    "prompt_read": 131072,
+    "reasoning_recoveries": 0,
+    "reasoning_repeat_coverage": 0.0,
+    "engine_generated": 512,
+    "prompt_ms": 37202.5,
+    "decode_ms": 5097.0,
+    "decode_tok_s": 100.5,
+    "hit_rate": 0.935,
+    "pcie_share": 0.0,
+    "ram_blobs": 17905,
+    "file_blobs": 0,
+    "file_mb": 0,
+    "drafts_offered": 356,
+    "drafts_accepted": 271
+  },
+  "quality": {
+    "score": 5,
+    "maximum": 6,
+    "correct": {
+      "arithmetic": true,
+      "code_result": false,
+      "translation": true,
+      "early": true,
+      "middle": true,
+      "late": true
+    },
+    "json_prefix_present": true,
+    "periodic_tail": false,
+    "long_digit_loop": false,
+    "longest_digit_run": 0,
+    "tool_calls": 0,
+    "valid_tool_json": 0,
+    "characters": 2515
+  },
+  "output_sha256": "3e72e1761e8910016a705347c64f9d76e478e6d4926921799226a6af5373c286",
+  "payload_sha256": "4cce0acf54eef27edf2806a6f8ce174b4f6b55e68e334f3a34886b502d178a2b",
+  "config_sha256": "f7c48ccee6382ac48b9522f29bda24a23b2e316237353ade3fa16520dd97bf1a",
+  "binary_sha256": "1b827daf441e701d17b12c77a67cee9b2ead8015288d1392e191f063aa469c39",
+  "profile_sha256": "8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf",
+  "native_prompt_segments": [
+    [
+      131072,
+      0,
+      131072,
+      37202
+    ]
+  ],
+  "counters_delta": {
+    "major_faults": 79,
+    "minor_faults": 261408,
+    "cpu_ticks": 15560,
+    "read_bytes": 323584
+  },
+  "ledger": [],
+  "host_memory_kib": {
+    "VmHWM": 48498208,
+    "VmRSS": 47983164,
+    "MemAvailable": 13556000
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "src/prefill/prefill.cpp": "57ab0dfa7795eea0ccbed18cafb3446d0fb00e27ead901bce9bff0057c3cf49d",
+  "include/strata/prefill/ple_upload.hpp": "dd39df2ec79ec84f2fa2000ce743e9b94a103733dd73d3a172375464eaea06aa",
+  "include/strata/kernels/ngram.hpp": "1719328aca0b373d012ab53a08ce68692625020731d07721b5e4e6cd83b7d740",
+  "include/strata/prefill/kernels.hpp": "ead49d8e01b141fc2454619cef498bf5fcc03bbd05736254b0fd9654638aecfd",
+  "include/strata/ngram/raw_row_cache.hpp": "512c7832980fbc8d9951d2c6808eca5ae9438688c10510f3ee269fdd2f0dcb71",
+  "src/kernels/ngram.cpp": "d9a47f530420262cdec2ea75c8a02b992b831b9f6685ab5a992ab388d15c9bf2",
+  "src/prefill/ple_transport.cu": "3f3544d7e95eede42eff92b9bd14f781055ca12444bb4fa0bbae7aee53129119",
+  "bench/ple-upload-w4a16-20261013/build_candidate.py": "424996e5dc22792666b756e6ed6f71de382018552454f3d03f0ddbe8fc18da2d",
+  "bench/ple-upload-w4a16-20261013/run_ple_profile.py": "9baa45049aab9e5818b947f4797bfc2963c820c7afdf88769cedaee56fca991d",
+  "bench/ple-upload-w4a16-20261013/run_service_aba.py": "180e8cd39b39b6eab00ef4610ac7d4cf86b0db0884309586007cad7435fde3bf",
+  "bench/ple-upload-w4a16-20261013/summarize_aba.py": "2c6302c6e38fc2c590e1b90c69d6e5bf4e8a603796cf1b6f3a9ae6ccacd7b198",
+  "bench/ple-upload-w4a16-20261013/extract_ple_timeline.py": "a298834946b7c3c0532987b78165c2660226a987518ee8f08a3c6511d15241df",
+  "bench/ple-upload-w4a16-20261013/compare_ring_controls.py": "f3dcb4527652d24ce8c5436a5bf165898dbaec8eec5e1d9304df1e3d44576963",
+  "bench/ple-upload-w4a16-20261013/ple_upload_cuda_test.cu": "bb3a8b9b2e1480646ad946a9d31287a01ef036b47057f44ef2bc0a48d2c88429",
+  "bench/ple-upload-w4a16-20261013/ple_upload_fence_test.cpp": "91528334be24d5607a8d50b4a819983892a72426e46dbcbeadcff0d918859cf8",
+  "bench/ple-upload-w4a16-20261013/raw_row_cache_test.cpp": "646de8a8ea9450e3878b73dccb2c913966bffc47e378210ba2da7a2739e1a53a"
+}
+

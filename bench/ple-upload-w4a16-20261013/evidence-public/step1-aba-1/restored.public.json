@@ -1,0 +1,13 @@
+{
+  "loaded": true,
+  "native_pid": 3344035,
+  "files": {
+    "/home/tc/Strata-nvfp4/strata-qwen38-flash-next-nvidia-30001.json": "f7b15c8a26987323404e2cada27db61e694f345bc3f0aa7632ed427be9c65115",
+    "/home/tc/wildrig/gpu_schedule.sh": "eb4fad639aa1702990ca100f65997f1a846e01152e63a36636ecfd2f08bb089f",
+    "/home/tc/Strata-nvfp4/engine/strata-nvfp4-w4a16-r256": "1b827daf441e701d17b12c77a67cee9b2ead8015288d1392e191f063aa469c39",
+    "/home/tc/Strata-data/packs/nvidia-nvfp4-raw/expert-profile.bin": "8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf",
+    "/home/tc/Strata-data/packs/nvidia-nvfp4-raw/model.stidx": "a880347d2217df6bd859ca5dfaf7198df67ae055bac8dd656ff45fc88ffe0ac0",
+    "/home/tc/Strata-data/packs/nvidia-nvfp4-raw/ple.stidx": "1d4d2781b9e3a2c388497fc332bebdad0ebacaf177eb34a2ba776d21cd88d4b1",
+    "/home/tc/Strata-data/mtp-nvidia-nvfp4/rt/draft_vocab.bin": "0fa45afd44c300f5407b49f5dd13544b0e555200e1a0d2c1de15c54167bd41e3"
+  }
+}

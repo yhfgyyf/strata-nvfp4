@@ -1,0 +1,70 @@
+{
+  "captures": [
+    {
+      "label": "W4A16-critical-trace-A",
+      "native_pid": 3384087,
+      "prefill_window_ms": 2322.615277,
+      "ple_payload_bytes": 83814400,
+      "stream_id": 13,
+      "correlation_id": 2813290,
+      "host_api": "cudaMemcpyAsync_v3020",
+      "host_submit_ms": 66.808984,
+      "host_return_ms": 66.814004,
+      "device_start_ms": 96.175886,
+      "device_end_ms": 100.286773,
+      "host_submit_to_device_start_ms": 29.366902,
+      "copy_ms": 4.110887,
+      "overlap_compute_ms": 0.0,
+      "prefill_partition_ns": {
+        "window_ns": 2322615277,
+        "parts_ns": {
+          "unobserved": 6724021,
+          "h2d_only": 580029965,
+          "compute_only": 75031000,
+          "compute_h2d": 1653261737,
+          "other_only": 713376,
+          "h2d_other": 6832522,
+          "compute_other": 22656
+        },
+        "h2d_union_ns": 2240124224,
+        "compute_union_ns": 1728315393,
+        "overlap_ns": 1653261737
+      },
+      "report_sha256": "ebfac05e377ef751c55a14458540b9aa843bbb8e9f5e4e47bd7cfbcd88812967"
+    },
+    {
+      "label": "W4A16-critical-trace-B",
+      "native_pid": 3386788,
+      "prefill_window_ms": 2300.368776,
+      "ple_payload_bytes": 83814400,
+      "stream_id": 22,
+      "correlation_id": 2805594,
+      "host_api": "cudaMemcpyAsync_v3020",
+      "host_submit_ms": 26.785912,
+      "host_return_ms": 27.141705,
+      "device_start_ms": 81.741431,
+      "device_end_ms": 85.922391,
+      "host_submit_to_device_start_ms": 54.955519,
+      "copy_ms": 4.18096,
+      "overlap_compute_ms": 0.0,
+      "prefill_partition_ns": {
+        "window_ns": 2300368776,
+        "parts_ns": {
+          "unobserved": 6490660,
+          "h2d_only": 554192480,
+          "compute_only": 60154869,
+          "other_only": 711680,
+          "compute_h2d": 1671887121,
+          "h2d_other": 6903102,
+          "compute_other": 28864
+        },
+        "h2d_union_ns": 2232982703,
+        "compute_union_ns": 1732070854,
+        "overlap_ns": 1671887121
+      },
+      "report_sha256": "1c57b2a0d9206fb6dd513ac92360dc3a7124ecf9e675bb1d4c7e3d3df9fc7b57"
+    }
+  ],
+  "analyzer_sha256": "a298834946b7c3c0532987b78165c2660226a987518ee8f08a3c6511d15241df",
+  "scope": "One instrumented request per arm. Native CUDA activity, matched correlation and NVTX. No layer-level GPU marker or CPU sampling; activity overlap does not establish removable latency."
+}

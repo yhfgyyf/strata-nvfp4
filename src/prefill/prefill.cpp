@@ -36,6 +36,7 @@
 #include "strata/prefill/moe_mmq.hpp"
 #include "strata/core/peer_experts.hpp"
 #include "strata/prefill/kernels.hpp"
+#include "strata/prefill/ple_upload.hpp"
 
 #include <cuda_runtime.h>
 
@@ -164,6 +165,11 @@ inline bool force_pageable() {
 // spinners starved a pinned host thread (DGX Spark IQ3_S 8K prompt 91 -> 1,222 tok/s with sleeping waits); on Windows
 // the 5070 read an 8K Q2_0 prompt 1.2% slower with them (1,469.5 -> 1,452 tok/s, 10 pairs), so they stay spinning
 // there.  Same output either way.  STRATA_STAGER_SLEEP=1/0 forces either.
+bool raw_ple_upload() {
+    static const bool enabled = [] { const char* value = std::getenv("STRATA_PLE_RAW_UPLOAD"); return value && value[0] == '1'; }();
+    return enabled;
+}
+
 inline bool stager_sleep() {
     static const bool v = [] {
         const char* e = std::getenv("STRATA_STAGER_SLEEP");
@@ -801,6 +807,13 @@ struct Prefill::Impl {
     int used_of[RING_MAX] = {};
     // PLE
     float* ple_emb = nullptr;
+    uint8_t* ple_raw_dev = nullptr;
+    uint8_t* ple_raw_host[2] = {};
+    std::vector<uint8_t> ple_raw_pageable[2];
+    cudaEvent_t ple_ready[2] = {};
+    cudaStream_t ple_copy = nullptr;
+    cudaEvent_t ple_consumed = nullptr;
+    cudaError_t ple_drain_error = cudaSuccess;
     std::vector<float> ple_pageable[2];      // the fallback when no more RAM can be pinned
     float* ple_emb_host[2] = {};             // pinned, double-buffered: the next chunk's rows are read while this
     cudaEvent_t ple_copied[2] = {};          // one runs; the event marks that buffer's upload done
@@ -882,6 +895,7 @@ void Prefill::release() {
     if (impl_->copy) cudaStreamSynchronize(impl_->copy);
     if (impl_->dequant) cudaStreamSynchronize(impl_->dequant);
     if (impl_->kv_copy) cudaStreamSynchronize(impl_->kv_copy);
+    if (impl_->ple_copy) cudaStreamSynchronize(impl_->ple_copy);
     for (int i = 0; i < RING_MAX; ++i) {
         if (impl_->copied[i]) cudaEventDestroy(impl_->copied[i]);
         if (impl_->used[i]) cudaEventDestroy(impl_->used[i]);
@@ -889,6 +903,8 @@ void Prefill::release() {
     for (int b = 0; b < 2; ++b) {
         if (impl_->hand[b]) cudaFreeHost(impl_->hand[b]);
         if (impl_->ple_copied[b]) cudaEventDestroy(impl_->ple_copied[b]);
+        if (impl_->ple_ready[b]) cudaEventDestroy(impl_->ple_ready[b]);
+        if (impl_->ple_raw_host[b] && impl_->ple_raw_pageable[b].empty()) cudaFreeHost(impl_->ple_raw_host[b]);
         if (impl_->ple_emb_host[b] && impl_->ple_pageable[b].empty()) cudaFreeHost(impl_->ple_emb_host[b]);
     }
     if (impl_->copy) cudaStreamDestroy(impl_->copy);
@@ -898,6 +914,8 @@ void Prefill::release() {
         if (impl_->dq_used[i]) cudaEventDestroy(impl_->dq_used[i]);
     }
     if (impl_->kv_copy) cudaStreamDestroy(impl_->kv_copy);
+    if (impl_->ple_copy) cudaStreamDestroy(impl_->ple_copy);
+    if (impl_->ple_consumed) cudaEventDestroy(impl_->ple_consumed);
     if (impl_->kv_released) cudaEventDestroy(impl_->kv_released);
     if (impl_->kv_ready) cudaEventDestroy(impl_->kv_ready);
     if (impl_->grp_host) cudaFreeHost(impl_->grp_host);
@@ -1097,6 +1115,11 @@ bool Prefill::init(const core::WeightTable& wt, const core::ModelGeometry& g, co
         if (files && std::getenv("STRATA_STAGER_RING") == nullptr) m.stager->kRing = 4 * threads;
         if (!m.stager->init((size_t) MAXBLOB(), threads)) ok = false;
     }
+    const char* early = std::getenv("STRATA_PLE_EARLY_UPLOAD");
+    if (early && early[0] == '1') {
+        if (!m.ple_copy && cudaStreamCreateWithFlags(&m.ple_copy, cudaStreamNonBlocking) != cudaSuccess) ok = false;
+        if (!m.ple_consumed && cudaEventCreateWithFlags(&m.ple_consumed, cudaEventDisableTiming) != cudaSuccess) ok = false;
+    }
     m.steps_host.resize(T * strata::kernels::kStepCount);
     m.ids_host.resize(T * K); m.slot_host.resize(T * K); m.src_host.resize(T * K); m.cnt.resize(m.g->n_expert); m.off.resize(m.g->n_expert + 1);
     {
@@ -1121,13 +1144,23 @@ bool Prefill::init(const core::WeightTable& wt, const core::ModelGeometry& g, co
         }
     }
     for (int b = 0; b < 2; ++b) {
-        if (!m.ple_emb_host[b] &&
+        const unsigned int ple_event_flags = cudaEventDisableTiming | (m.ple_copy ? cudaEventBlockingSync : 0);
+        if (raw_ple_upload()) {
+            if (!m.ple_raw_host[b] &&
+                (force_pageable() || cudaHostAlloc((void**) &m.ple_raw_host[b], (size_t) T * N, cudaHostAllocDefault) != cudaSuccess)) {
+                cudaGetLastError();
+                m.ple_raw_pageable[b].resize(T * N);
+                m.ple_raw_host[b] = m.ple_raw_pageable[b].data();
+            }
+            if (!m.ple_ready[b] && cudaEventCreateWithFlags(&m.ple_ready[b], ple_event_flags) != cudaSuccess) ok = false;
+        }
+        if (!raw_ple_upload() && !m.ple_emb_host[b] &&
             (force_pageable() || cudaHostAlloc((void**) &m.ple_emb_host[b], (size_t) T * N * 4, cudaHostAllocDefault) != cudaSuccess)) {
             cudaGetLastError();
             m.ple_pageable[b].resize(T * N);          // pageable: the upload is staged before it returns
             m.ple_emb_host[b] = m.ple_pageable[b].data();
         }
-        if (!m.ple_copied[b] && cudaEventCreateWithFlags(&m.ple_copied[b], cudaEventDisableTiming) != cudaSuccess)
+        if (!m.ple_copied[b] && cudaEventCreateWithFlags(&m.ple_copied[b], ple_event_flags) != cudaSuccess)
             ok = false;
         m.ple_rows[b].resize(T * strata::kernels::PLE_N_HEADS);
     }
@@ -1269,6 +1302,7 @@ bool Prefill::carve(size_t T, void* alloc) {
         }
     }
     m.ple_emb = o.take<float>(T * N, ok);
+    m.ple_raw_dev = raw_ple_upload() ? o.take<uint8_t>(T * N, ok) : nullptr;
     m.ple_norm = o.take<float>((size_t) strata::kernels::NG_HC_DIM, ok);
     take_stage(o, ss, s, m.stage, ok);
     m.T = (int64_t) T;
@@ -1282,7 +1316,8 @@ bool Prefill::relayout(int64_t chunk, void* borrow, uint64_t borrow_bytes, std::
         return false;
     }
     if (cudaStreamSynchronize(m.cs) != cudaSuccess || cudaStreamSynchronize(m.copy) != cudaSuccess ||
-        (m.kv_copy && cudaStreamSynchronize(m.kv_copy) != cudaSuccess)) {
+        (m.kv_copy && cudaStreamSynchronize(m.kv_copy) != cudaSuccess) ||
+        (m.ple_copy && cudaStreamSynchronize(m.ple_copy) != cudaSuccess)) {
         err = "prefill: relayout: the stream failed";
         return false;
     }
@@ -1779,6 +1814,7 @@ uint64_t Prefill::bytes_needed_impl(const core::ModelGeometry& g, const core::Se
         for (int i = 0; i < ring_slots(T); ++i) o.take<uint8_t>((size_t) MAXBLOB(), ok);
     }
     f(T * N);
+    if (raw_ple_upload()) o.take<uint8_t>(T * N, ok);
     f((size_t) strata::kernels::NG_HC_DIM);
     strata::kernels::KvHostPools stage;
     take_stage(o, ss, s, stage, ok);
@@ -2051,14 +2087,75 @@ bool Prefill::run_impl(const int64_t* tokens, int64_t n, int64_t pos0, std::stri
             pv[0] = pv[1];
             pv[1] = tok;
         }
+        if (raw_ple_upload()) return ss.ple.table->gather_raw_fp8(m.ple_rows[buf].data(), (size_t) T, m.ple_raw_host[buf], e);
         return ss.ple.table->gather_batch(m.ple_rows[buf].data(), (size_t) T, m.ple_emb_host[buf], e);
     };
+    const bool ple_early = ple_on && m.ple_copy;
+    PleUploadFence ple_fence;
+    m.ple_drain_error = cudaSuccess;
     std::string ple_next_err;
     std::future<bool> ple_next;             // declared after everything it reads: an early return waits for it
+    struct PleDrain {
+        Impl& m; PleUploadFence& fence; std::future<bool>& next;
+        ~PleDrain() {
+            fence.cancel();
+            if (next.valid()) next.wait();
+            if (m.ple_copy) m.ple_drain_error = cudaStreamSynchronize(m.ple_copy);
+        }
+    } ple_drain{m, ple_fence, ple_next};
     int ple_buf = 0;
     // STRATA_PLE_TRACE=1: when a chunk's read started, when layer 1 asked for its rows, how long it waited
     static const bool ple_trace = std::getenv("STRATA_PLE_TRACE") != nullptr;
     Clock::time_point ple_t0 = t_start;
+    // copy_done protects host reuse; raw_ready additionally covers GPU expansion.
+    auto ple_upload = [&, destination = m.ple_emb, raw_destination = m.ple_raw_dev](int buf, int64_t rows, cudaStream_t stream) {
+        const void* source = raw_ple_upload() ? (const void*) m.ple_raw_host[buf] : m.ple_emb_host[buf];
+        void* target = raw_ple_upload() ? (void*) raw_destination : destination;
+        const cudaError_t copied = cudaMemcpyAsync(target, source, (size_t) rows * N * (raw_ple_upload() ? 1 : 4),
+                                                  cudaMemcpyHostToDevice, stream);
+        if (copied != cudaSuccess) throw std::runtime_error(std::string("prefill: PLE upload: ") + cudaGetErrorString(copied));
+        const cudaError_t recorded = cudaEventRecord(m.ple_copied[buf], stream);
+        if (recorded != cudaSuccess) throw std::runtime_error(std::string("prefill: PLE copy event: ") + cudaGetErrorString(recorded));
+        if (raw_ple_upload()) {
+            ple_raw_fp8_to_f32(raw_destination, destination, rows * N, ss.ple.table->fp8_scale(), stream);
+            const cudaError_t ready = cudaEventRecord(m.ple_ready[buf], stream);
+            if (ready != cudaSuccess) throw std::runtime_error(std::string("prefill: PLE expansion event: ") + cudaGetErrorString(ready));
+        }
+    };
+    auto ple_start = [&](int64_t c0, int buf) {
+        ple_t0 = Clock::now();
+        ple_next = std::async(std::launch::async, [&, c0, buf, upload = ple_upload] {
+            strata::aux_cpus::pin_current_thread();
+            const uint64_t generation = (uint64_t) (c0 / m.T) + 1;
+            auto fail = [&](const std::string& message) {
+                ple_next_err = message;
+                ple_fence.failed.store(true, std::memory_order_release);
+                return false;
+            };
+            try {
+                if (!ple_gather(c0, buf, ple_next_err)) return fail(ple_next_err);
+                if (!ple_early) return true;
+                const core::OnDevice device(m.device);
+                if (!ple_fence.wait_reusable(generation)) return fail("cancelled");
+                if (generation > 1 && cudaStreamWaitEvent(m.ple_copy, m.ple_consumed, 0) != cudaSuccess)
+                    return fail("prefill: PLE consumed event wait failed");
+                const int64_t rows = std::min(m.T, n - c0);
+                upload(buf, rows, m.ple_copy);
+                ple_fence.submitted.store(generation, std::memory_order_release);
+                if (ledger) std::fprintf(stderr, "STRATA_LEDGER {\"kind\":\"ple_submit\",\"request\":%llu,\"loan\":%llu,"
+                    "\"chunk_pos\":%lld,\"generation\":%llu,\"buffer\":%d,\"submitted_bytes\":%llu,\"early\":true}\n",
+                    (unsigned long long) m.ledger_request, (unsigned long long) m.ledger_loan,
+                    (long long) (pos0 + c0), (unsigned long long) generation, buf, (unsigned long long) ((size_t) rows * N * (raw_ple_upload() ? 1 : 4)));
+                // Host submission does not guarantee the DMA is scheduled. Hold future-layer
+                // expert credits until this PLE destination is ready on the device.
+                const cudaError_t ready = cudaEventSynchronize(raw_ple_upload() ? m.ple_ready[buf] : m.ple_copied[buf]);
+                if (ready != cudaSuccess)
+                    return fail(std::string("prefill: PLE ready event: ") + cudaGetErrorString(ready));
+                ple_fence.ready.store(generation, std::memory_order_release);
+                return true;
+            } catch (const std::exception& e) { return fail(std::string("prefill: PLE worker: ") + e.what()); }
+        });
+    };
 
     for (int64_t c0 = 0; c0 < n; c0 += m.T) {
         if (should_stop && should_stop()) { err = "cancelled"; return false; }
@@ -2088,6 +2185,18 @@ bool Prefill::run_impl(const int64_t* tokens, int64_t n, int64_t pos0, std::stri
         ++stats_.chunks;
         pt.mark(kPfStart, cs);
         const auto tsetup = Clock::now();
+        auto upload_steps = [&]() {
+            for (int64_t t = 0; t < T; ++t)
+                strata::kernels::qsa_step_fill(m.steps_host.data() + t * strata::kernels::kStepCount, p0 + t, s);
+            const cudaError_t status = cudaMemcpyAsync(m.steps_dev, m.steps_host.data(),
+                (size_t) T * strata::kernels::kStepCount * 4, cudaMemcpyHostToDevice, m.cs);
+            if (status != cudaSuccess) err = std::string("prefill: QSA steps upload: ") + cudaGetErrorString(status);
+            return status == cudaSuccess;
+        };
+        // This metadata must not wait behind the expert DMA train and block layer0's compute stream.
+        if (ple_early && !upload_steps()) return false;
+        // Tokens, prefix history and the borrowed layout are now fixed; read/upload before embeddings.
+        if (ple_early && !ple_next.valid()) ple_start(c0, ple_buf);
         // ---- embeddings, broadcast to the four streams - or, in a later stage of a layer split, the rows the
         // previous stage handed on
         if (hand_in_ != nullptr) {
@@ -2146,11 +2255,7 @@ bool Prefill::run_impl(const int64_t* tokens, int64_t n, int64_t pos0, std::stri
         // were read ahead during the previous chunk; the first chunk's are read beside layer 0 - they are needed from
         // layer 1 on, and gathering them here first left the GPU idle for the whole read (~0.4 s of a 32K prompt)
         if (ple_on && !ple_next.valid()) {
-            ple_next = std::async(std::launch::async, [&ple_gather, &ple_next_err, c0, b = ple_buf] {
-                strata::aux_cpus::pin_current_thread();
-                return ple_gather(c0, b, ple_next_err);
-            });
-            ple_t0 = Clock::now();
+            ple_start(c0, ple_buf);
         }
         bool ple_pending = ple_on;
         // the chunk's rows onto the device just before layer 1 reads them, and the next chunk's gather started
@@ -2166,33 +2271,27 @@ bool Prefill::run_impl(const int64_t* tokens, int64_t n, int64_t pos0, std::stri
                 std::fprintf(stderr, "strata ple: chunk %lld: read started %.1f ms into the run, layer 1 reached at %.1f, "
                                      "waited %.1f ms\n", (long long) c0, std::chrono::duration<double, std::milli>(ple_t0 - t_start).count(),
                              std::chrono::duration<double, std::milli>(tp - t_start).count(), ms_since(tp));
-            if (cudaMemcpyAsync(m.ple_emb, m.ple_emb_host[ple_buf], (size_t) T * N * 4, cudaMemcpyHostToDevice, m.cs) !=
-                    cudaSuccess ||
-                cudaEventRecord(m.ple_copied[ple_buf], m.cs) != cudaSuccess) {
-                err = std::string("prefill: the PLE rows' upload failed: ") + cudaGetErrorString(cudaGetLastError());
-                return false;
-            }
+            try {
+                if (ple_early) {
+                    const cudaError_t ready = cudaStreamWaitEvent(m.cs, raw_ple_upload() ? m.ple_ready[ple_buf] : m.ple_copied[ple_buf], 0);
+                    if (ready != cudaSuccess) { err = "prefill: PLE ready event wait failed"; return false; }
+                } else ple_upload(ple_buf, T, m.cs);
+            } catch (const std::exception& e) { err = e.what(); return false; }
             if (c0 + m.T < n) {
                 // the other buffer's upload (a chunk ago) is done before the SSD thread refills it
                 if (cudaEventSynchronize(m.ple_copied[ple_buf ^ 1]) != cudaSuccess) {
                     err = std::string("prefill: the PLE rows' upload failed: ") + cudaGetErrorString(cudaGetLastError());
                     return false;
                 }
-                ple_next = std::async(std::launch::async, [&ple_gather, &ple_next_err, c1 = c0 + m.T, b = ple_buf ^ 1] {
-                    strata::aux_cpus::pin_current_thread();
-                    return ple_gather(c1, b, ple_next_err);
-                });
-                ple_t0 = Clock::now();
+                ple_start(c0 + m.T, ple_buf ^ 1);
             }
             ple_buf ^= 1;
             stats_.ms_ple += ms_since(tp);
             return true;
         };
         for (int64_t t = 0; t < T; ++t) { prev[0] = prev[1]; prev[1] = (int32_t) tokens[c0 + t]; }
-        // ---- the QSA step records of every position in the chunk
-        for (int64_t t = 0; t < T; ++t) strata::kernels::qsa_step_fill(m.steps_host.data() + t * strata::kernels::kStepCount, p0 + t, s);
-        cudaMemcpyAsync(m.steps_dev, m.steps_host.data(), (size_t) T * strata::kernels::kStepCount * 4,
-                        cudaMemcpyHostToDevice, m.cs);
+        // The control keeps its original late submission; early mode submits before embeddings.
+        if (!ple_early && !upload_steps()) return false;
 
         int64_t qsa_index = 0, gdn_index = 0;
         for (int64_t l = 0; l < LB; ++l) (core::is_qsa_layer(g, l) ? qsa_index : gdn_index) += 1;
@@ -2314,6 +2413,7 @@ bool Prefill::run_impl(const int64_t* tokens, int64_t n, int64_t pos0, std::stri
             limit = std::min(limit, seq.size());
             while (issued < limit) {
                 const StreamEntry& en = seq[issued];
+                if (ple_early && en.l > LB && ple_fence.pending((uint64_t) (c0 / m.T) + 1)) return;
                 const int sl = (int) (issued % (size_t) m.ring);
                 const auto th = Clock::now();
                 const size_t bytes = (size_t) lay0.blob_bytes(en.l);
@@ -2362,6 +2462,11 @@ bool Prefill::run_impl(const int64_t* tokens, int64_t n, int64_t pos0, std::stri
                         std::this_thread::yield();
                     }
                     const StreamEntry& en = seq[idx];
+                    // Keep the current layer progressing; do not flood future-layer DMA ahead of critical PLE.
+                    while (ple_early && en.l > LB && ple_fence.pending((uint64_t) (c0 / m.T) + 1)) {
+                        if (a_stop.load(std::memory_order_acquire)) return;
+                        std::this_thread::yield();
+                    }
                     const int sl = (int) (idx % (size_t) m.ring);
                     const auto th = Clock::now();
                     const size_t bytes = (size_t) lay0.blob_bytes(en.l);
@@ -2424,6 +2529,8 @@ bool Prefill::run_impl(const int64_t* tokens, int64_t n, int64_t pos0, std::stri
             core::progress_at("reading the prompt (batched): layer", l, p0);   // #251: a stall names layer and chunk
             const core::LayerView v(*m.wt, l);
             if (l == std::max<int64_t>(LB, 1) && !ple_land()) return false;   // the PLE rows, read from layer 1 on
+            if (ple_early && stream_all && !threaded_issue && l == std::max<int64_t>(LB, 1))
+                issue_until(given_back + (size_t) m.ring);
             // ---- the PLE block at layer 1, token by token (its conv reads the previous tokens' rows)
             if (l == 1 && ple_on && ple_batch) {
                 // the whole chunk at once, in sub-batches carved from the idle scratch region: the key and value
@@ -2478,6 +2585,11 @@ bool Prefill::run_impl(const int64_t* tokens, int64_t n, int64_t pos0, std::stri
                     strata::kernels::ple_history_advance(ss.ple.hist, m.ple_norm, m.cs);
                 }
                 stats_.ms_ple += ms_since(tp);
+            }
+            if (l == 1 && ple_early) {
+                const cudaError_t consumed = cudaEventRecord(m.ple_consumed, m.cs);
+                if (consumed != cudaSuccess) { err = "prefill: PLE consumed event record failed"; return false; }
+                ple_fence.consumed((uint64_t) (c0 / m.T) + 1);
             }
             for (int half = 0; half < 2; ++half) {
                 // ---- the hyper-connection read of this half
@@ -4157,6 +4269,10 @@ bool Prefill::run(const int64_t* tokens, int64_t n, int64_t pos0, std::string& e
     }
     if (!drain_ok) {
         err = drain_err;
+        return false;
+    }
+    if (impl_->ple_drain_error != cudaSuccess) {
+        err = std::string("prefill: PLE stream drain: ") + cudaGetErrorString(impl_->ple_drain_error);
         return false;
     }
     return true;
