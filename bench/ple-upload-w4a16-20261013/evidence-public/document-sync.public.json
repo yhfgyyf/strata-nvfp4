@@ -1,6 +1,0 @@
-{
-  "canonical_report_sha256": "ac9d79a7ad31b175d27705f34538103e529cae12e19c7ea0f6331cce44150d6a",
-  "workspace_report_sha256": "966f3dcabbb8007141248b93ee85a68c59943e33da1c09cdef785ab252a7f6f0",
-  "optimization_document_sha256": "daccfe58f6ade5c135dd0d905fa9aa00fdcabd523d06c5e501670899849ffed0",
-  "scope": "Workspace report mirrors canonical report content plus a canonical-source link; prior historical sections preserved"
-}

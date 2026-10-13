@@ -18,3 +18,5 @@ strata.json
 strata.json.*
 .env
 .DS_Store
+/bench/
+/docs/performance.json

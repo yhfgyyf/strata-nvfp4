@@ -1,9 +1,0 @@
-{"case":"near_unique","cache_mib":0,"pass":0,"rows":8192,"raw_bytes":1310720,"gpu_decoded_elements":1310720,"host_gather_ms":21.978129,"bit_equal":true}
-{"case":"near_unique","cache_mib":0,"pass":1,"rows":8192,"raw_bytes":1310720,"gpu_decoded_elements":1310720,"host_gather_ms":0.384683,"bit_equal":true}
-{"case":"near_unique","cache_mib":1,"pass":0,"rows":8192,"raw_bytes":1310720,"gpu_decoded_elements":1310720,"host_gather_ms":16.467896,"bit_equal":true}
-{"case":"near_unique","cache_mib":1,"pass":1,"rows":8192,"raw_bytes":1310720,"gpu_decoded_elements":1310720,"host_gather_ms":1.338035,"bit_equal":true}
-{"case":"repeated","cache_mib":0,"pass":0,"rows":8192,"raw_bytes":1310720,"gpu_decoded_elements":1310720,"host_gather_ms":0.339534,"bit_equal":true}
-{"case":"repeated","cache_mib":0,"pass":1,"rows":8192,"raw_bytes":1310720,"gpu_decoded_elements":1310720,"host_gather_ms":0.050884,"bit_equal":true}
-{"case":"repeated","cache_mib":1,"pass":0,"rows":8192,"raw_bytes":1310720,"gpu_decoded_elements":1310720,"host_gather_ms":0.394675,"bit_equal":true}
-{"case":"repeated","cache_mib":1,"pass":1,"rows":8192,"raw_bytes":1310720,"gpu_decoded_elements":1310720,"host_gather_ms":0.116119,"bit_equal":true}
-{"all_256_codes":true,"scales":8,"actual_scale_included":true,"raw_and_cached_scalar_batch":true,"out_of_range_zero":true,"bit_equal":true}

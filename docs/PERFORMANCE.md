@@ -14,7 +14,7 @@ Prefill uses the engine's complete input-processing timer. Decode uses its gener
 
 All 18 records completed 512 output tokens, with no repeated-tail or long-digit loop detected. The synthetic-prompt checks do not establish general model accuracy. Output content, workload and MTP acceptance rate affect decode speed.
 
-Data: [performance.json](performance.json). The supplied expert ranking has SHA256 `8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf`; the draft vocabulary has SHA256 `0fa45afd44c300f5407b49f5dd13544b0e555200e1a0d2c1de15c54167bd41e3`. Model loading and warmup are excluded.
+The supplied expert ranking has SHA256 `8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf`; the draft vocabulary has SHA256 `0fa45afd44c300f5407b49f5dd13544b0e555200e1a0d2c1de15c54167bd41e3`. Model loading and warmup are excluded.
 
 ## Single-slot, 32K context
 
@@ -40,12 +40,10 @@ October 14, 2026, same NVIDIA model and machine: context limit 262144, W4A16, R2
 | 32768 | 3588.4 | 104.80 | 9.2099 | 4286.8 | 111.93 | 7.7357 |
 | 131072 | 3644.4 | 103.13 | 36.2013 | 4276.1 | 112.67 | 30.8926 |
 
-The two-slot configuration has 10295 resident GPU experts and is the current default. Its rows are `rotation-r1/01-B-rotate`. The one-slot configuration has 13377 resident experts, effective native batch=0, and uses NOWAIT with rotation off; its rows are `lazy-r1/00-A0-single-nowait`. Both execute GEN for the speed requests. The server's slot capacity is different from actual client concurrency.
+The two-slot configuration has 10295 resident GPU experts and is the current default. The one-slot configuration has 13377 resident experts, effective native batch=0, and uses NOWAIT with rotation off. Both execute GEN for the speed requests. The server's slot capacity is different from actual client concurrency.
 
 The table compares complete configurations from separate series, not the isolated effect of slots or rotation. The slot allocation changes the expert-memory budget; rotation also differs. The older October 12 measurements above use medians of six samples, whereas these use means of three. Do not derive a causal speedup from those different dates and statistics.
 
 For rotation alone in the same two-slot A/B/A series, 32K decode is 104.80 tok/s versus the surrounding A mean of 99.33 (+5.50%); signed control drift is -0.87%. At 8K/128K, the observed +3.31%/+5.10% changes are smaller than absolute control drift of 6.40%/6.38%, so gains remain inconclusive. Prefill changes are -0.58%/-0.13%/-0.05%. The 32K decode sample standard deviations for A0/B/A1 are 4.08/1.87/5.68 tok/s; three trials do not establish a statistically guaranteed improvement.
 
 All compared outputs contain 512 tokens, with the same 5/6 synthetic checks and no screened repeat/long-digit loops. The code-result check already fails in the baseline; these checks are not general model accuracy. First-token full-vocabulary logits for the rotation candidate match its control at all three lengths.
-
-Individual values, sample standard deviations, timing/quality receipts and source/build identities are in the [two-slot summary](../bench/pcie-lazy-w4a16-20261013/evidence-public/rotation-r1/summary.json) and [single-slot summary](../bench/pcie-lazy-w4a16-20261013/evidence-public/lazy-r1/summary.json). See the [full report](../bench/pcie-lazy-w4a16-20261013/REPORT.md) for the independent PCIe/lazy comparisons and deployment checks.

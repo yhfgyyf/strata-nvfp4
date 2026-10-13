@@ -1,9 +1,0 @@
-{
-  "complete": true,
-  "runs": [
-    "legacy-accept-aba-1"
-  ],
-  "gpu_competing_work": false,
-  "expert_mode": "W4A16",
-  "mean_trials": 3
-}
