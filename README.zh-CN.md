@@ -131,6 +131,7 @@ Responses、图片和工具调用示例见 [API.md](docs/API.md)。对外提供�
 | 推测解码 | MTP，`--spec 4`，batch MTP |
 | 前缀缓存 | 开启 |
 | aux CPU | 自动选择 |
+| PLE 上传／CPU 行缓存 | 提前上传、FP8 原始字节搬运、64 MiB 原始行缓存 |
 | 思考／工具解析 | 开启，支持循环恢复 |
 | 图片 | 开启，最多 1024 个图片 token |
 
@@ -143,6 +144,7 @@ Responses、图片和工具调用示例见 [API.md](docs/API.md)。对外提供�
 - 增加 NVIDIA ModelOpt NVFP4 原始权重的打包和读取，保留 FP8 PLE 的原始存储。
 - 增加 NVFP4 W4A16 fused MoE、CPU 专家计算及相关加载适配。
 - 合入 aux CPU 选择，增加 prefill 内存／搬运记录和可选缓冲紧缩。
+- 提前搬运 PLE 原始字节，在 GPU 上展开为 FP32，并启用 CPU 原始行缓存。
 - 补充思考循环及长数字串检测、工具调用恢复。
 - 增加本模型的一键安装、数据生成和 W4A16 R256 默认配置。
 

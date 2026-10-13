@@ -12,6 +12,9 @@
 
 namespace strata::prefill {
 
+// Original E4M3 bytes -> the existing FP32 PLE input, including its table scale.
+void ple_raw_fp8_to_f32(const uint8_t* raw, float* output, int64_t count, float scale, void* stream);
+
 // ---- hyper-connection (n_embd 2560, hc 4, hc_lr 320)
 /// xn[t, c*2560 + d] = R[t,c,d] * rsqrt(mean_d R[t,c,:]^2 + eps) * w_norm[c*2560 + d]; also its BF16 image.
 /// `xn16_lo` (null: none) takes bf16(x - xn16): W.xn16 + W.xn16_lo is the product with ~16 mantissa bits of x.

@@ -1,0 +1,18 @@
+{
+  "native_pid": 3384087,
+  "started_monotonic_s": 1307547.252093759,
+  "ttft_s": 2.6630566350650042,
+  "last_delta_s": 8.37130948714912,
+  "usage": {
+    "input_tokens": 8192,
+    "input_tokens_details": {
+      "cached_tokens": 0
+    },
+    "output_tokens": 512,
+    "output_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "total_tokens": 8704
+  },
+  "decode_delta_tps": 89.69469525391924
+}

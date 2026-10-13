@@ -1,0 +1,73 @@
+{
+  "complete": true,
+  "peak_running": 2,
+  "checks": [
+    {
+      "usage": {
+        "input_tokens": 261624,
+        "input_tokens_details": {
+          "cached_tokens": 261617
+        },
+        "output_tokens": 512,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 262136
+      },
+      "quality": {
+        "score": 5,
+        "maximum": 6,
+        "correct": {
+          "arithmetic": true,
+          "code_result": false,
+          "translation": true,
+          "early": true,
+          "middle": true,
+          "late": true
+        },
+        "json_prefix_present": true,
+        "periodic_tail": false,
+        "long_digit_loop": false,
+        "longest_digit_run": 0,
+        "tool_calls": 0,
+        "valid_tool_json": 0,
+        "characters": 2555
+      },
+      "payload_sha256": "e7c99e5c264f1f459f05c303c2b5b01d107718ae10ff20ae0ae75bcee1dbb5ce"
+    },
+    {
+      "usage": {
+        "input_tokens": 261624,
+        "input_tokens_details": {
+          "cached_tokens": 261592
+        },
+        "output_tokens": 512,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 262136
+      },
+      "quality": {
+        "score": 5,
+        "maximum": 6,
+        "correct": {
+          "arithmetic": true,
+          "code_result": false,
+          "translation": true,
+          "early": true,
+          "middle": true,
+          "late": true
+        },
+        "json_prefix_present": true,
+        "periodic_tail": false,
+        "long_digit_loop": false,
+        "longest_digit_run": 0,
+        "tool_calls": 0,
+        "valid_tool_json": 0,
+        "characters": 2559
+      },
+      "payload_sha256": "9595bebd3e22397ef411372cc04f883dd5e1e7170929c06aa86bab2e06d45606"
+    }
+  ],
+  "scope": "Two full-context branches sharing a pinned prefix; capacity check, not concurrent cold throughput"
+}

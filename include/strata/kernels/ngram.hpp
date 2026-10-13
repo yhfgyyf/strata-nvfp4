@@ -190,6 +190,10 @@ public:
     /// while a single-token `issue` is pending.  The mapped mode gathers row by row.
     bool gather_batch(const uint32_t* rows, size_t n_tokens, float* out, std::string& err);
 
+    /// Mapped F8_E4M3 only: all raw row occurrences in original order, with the same shard mapping.
+    bool gather_raw_fp8(const uint32_t* rows, size_t n_tokens, uint8_t* out, std::string& err);
+    float fp8_scale() const;
+
     /// Fault injection (Direct mode): every row read completes no earlier than `us` after issue.
     void set_injected_delay_us(double us);
 

@@ -1,0 +1,33 @@
+{
+  "at_utc": "2026-10-13T06:50:25.512329+00:00",
+  "scope": "Host-only synchronization/cache checks; no CUDA execution on this Mac",
+  "host": "Darwin",
+  "arch": "arm64",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "tests": [
+    {
+      "test": "ple_upload_fence_test",
+      "passed": true,
+      "source_sha256": "91528334be24d5607a8d50b4a819983892a72426e46dbcbeadcff0d918859cf8",
+      "header_sha256": "dd39df2ec79ec84f2fa2000ce743e9b94a103733dd73d3a172375464eaea06aa",
+      "compile_flags": [
+        "-std=c++20",
+        "-O2",
+        "-UNDEBUG",
+        "-pthread"
+      ]
+    },
+    {
+      "test": "raw_row_cache_test",
+      "passed": true,
+      "source_sha256": "646de8a8ea9450e3878b73dccb2c913966bffc47e378210ba2da7a2739e1a53a",
+      "header_sha256": "512c7832980fbc8d9951d2c6808eca5ae9438688c10510f3ee269fdd2f0dcb71",
+      "compile_flags": [
+        "-std=c++20",
+        "-O2",
+        "-UNDEBUG",
+        "-pthread"
+      ]
+    }
+  ]
+}

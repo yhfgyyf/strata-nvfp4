@@ -2,6 +2,9 @@
 //
 // See include/strata/kernels/ngram.hpp for the semantics, the rival readings, and the note on MADV_RANDOM.
 #include "strata/kernels/ngram.hpp"
+#include "strata/ngram/raw_row_cache.hpp"
+#include <mutex>
+#include <unordered_map>
 #include "strata/artifact/gguf_reader.hpp"
 #include "strata/artifact/dequant.hpp"
 #include "strata/kernels/f16_bits.hpp"
@@ -225,6 +228,21 @@ struct PleTable::Impl {
     std::vector<uint8_t> batch_raw;   // a batch gather's raw rows, kept between calls
     std::vector<uint32_t> shard_map; // logical shard -> physical shard in the original safetensors file
     uint32_t rows_per_shard = 0;
+    strata::ngram::RawRowCache raw_cache;
+    std::mutex raw_mutex;
+    uint64_t raw_hits = 0, raw_misses = 0, raw_batches = 0, raw_occurrences = 0, raw_fetches = 0;
+    // Called under raw_mutex. Cache keys stay logical; only misses apply the existing shard map.
+    void mapped_raw_row(uint32_t logical, uint8_t* out) {
+        if (raw_cache.get(logical, out)) { ++raw_hits; return; }
+        uint32_t row = logical;
+        if (!shard_map.empty() && row < n_rows)
+            row = shard_map[row / rows_per_shard] * rows_per_shard + row % rows_per_shard;
+        if (!data || row >= n_rows) { std::memset(out, 0, PLE_HEAD_DIM); return; }
+        ++raw_misses;
+        std::memcpy(out, data + (size_t) row * rb, PLE_HEAD_DIM);
+        bytes_read += PLE_HEAD_DIM;
+        raw_cache.put(logical, out);
+    }
     void decode(const uint8_t* row, float* out160) const { fmt->dequant(row, scale, out160); }
 };
 
@@ -276,6 +294,11 @@ bool PleTable::open(const std::string& gguf_path, std::string& err, const PleIoO
     }
     impl_->fmt = fmt;
     impl_->rb = fmt->row_bytes;
+    if (io.mode != PleIo::Direct && fmt->id == PleFormat::F8_E4M3) {
+        const char* value = std::getenv("STRATA_PLE_RAW_CACHE_MIB");
+        const long long mib = value ? std::clamp<long long>(std::atoll(value), 0, 512) : 0;
+        impl_->raw_cache.reset((size_t) mib << 20);
+    }
     // PleReader's row_bytes has been a runtime parameter since the FP8 table (160 B rows) needed it; Q5_0's
     // 110 B rows go through the exact same generic path (ple_reader_test --selftest covers both 90 and 110 B
     // rows: straddling, caching, in-flight tickets, keep-alive). This refusal was stale.
@@ -489,6 +512,8 @@ void PleTable::close() {
     impl_->bytes_read = 0;
     impl_->shard_map.clear();
     impl_->rows_per_shard = 0;
+    impl_->raw_cache.reset(0);
+    impl_->raw_hits = impl_->raw_misses = impl_->raw_batches = impl_->raw_occurrences = impl_->raw_fetches = 0;
 }
 
 bool PleTable::is_open() const { return impl_->data != nullptr || impl_->reader.is_open(); }
@@ -499,6 +524,12 @@ uint64_t PleTable::rows() const { return impl_->n_rows; }
 uint64_t PleTable::bytes_read() const { return impl_->bytes_read; }
 
 void PleTable::read_row(uint32_t row, float* out160) const {
+    if (impl_->mode != PleIo::Direct && impl_->fmt->id == PleFormat::F8_E4M3 && impl_->raw_cache.enabled()) {
+        uint8_t raw[PLE_HEAD_DIM];
+        { std::lock_guard<std::mutex> lock(impl_->raw_mutex); impl_->mapped_raw_row(row, raw); }
+        impl_->decode(raw, out160);
+        return;
+    }
     if (!impl_->shard_map.empty() && row < impl_->n_rows) {
         row = impl_->shard_map[row / impl_->rows_per_shard] * impl_->rows_per_shard + row % impl_->rows_per_shard;
     }
@@ -620,9 +651,59 @@ bool PleTable::gather_batch(const uint32_t* rows, size_t n_tokens, float* out, s
     return true;
 }
 
+bool PleTable::gather_raw_fp8(const uint32_t* rows, size_t n_tokens, uint8_t* out, std::string& err) {
+    if (impl_->pending) { err = "PleTable::gather_raw_fp8 while a token is in flight"; return false; }
+    if (!impl_->data || impl_->mode == PleIo::Direct || impl_->fmt->id != PleFormat::F8_E4M3 ||
+        !std::isfinite(impl_->scale) || std::signbit(impl_->scale)) {
+        // Zero raw bytes must also preserve the scalar reader's positive-zero OOB rows.
+        err = "PLE raw upload requires a mapped F8_E4M3 table with a finite nonnegative scale";
+        return false;
+    }
+    if (n_tokens > SIZE_MAX / (PLE_N_HEADS * PLE_HEAD_DIM)) { err = "PLE raw batch too large"; return false; }
+    wait_prefetches();
+    const size_t n = n_tokens * PLE_N_HEADS;
+    std::lock_guard<std::mutex> lock(impl_->raw_mutex);
+    const uint64_t hits = impl_->raw_hits, misses = impl_->raw_misses;
+    std::unordered_map<uint32_t, size_t> first;
+    if (impl_->raw_cache.enabled()) first.reserve(n);
+    for (size_t i = 0; i < n; ++i) {
+        if (impl_->raw_cache.enabled()) {
+            const auto inserted = first.emplace(rows[i], i);
+            if (!inserted.second) {
+                std::memcpy(out + i * PLE_HEAD_DIM, out + inserted.first->second * PLE_HEAD_DIM, PLE_HEAD_DIM);
+                continue;
+            }
+        }
+        impl_->mapped_raw_row(rows[i], out + i * PLE_HEAD_DIM);
+    }
+    const size_t unique = impl_->raw_cache.enabled() ? first.size() : n;
+    ++impl_->raw_batches; impl_->raw_occurrences += n; impl_->raw_fetches += unique;
+    if (std::getenv("STRATA_PREFILL_LEDGER"))
+        std::fprintf(stderr, "STRATA_LEDGER {\"kind\":\"ple_raw_rows\",\"occurrences\":%llu,\"fetched_rows\":%llu,"
+            "\"cache_hits\":%llu,\"backing_rows\":%llu,\"backing_payload_bytes\":%llu,\"raw_output_bytes\":%llu,"
+            "\"decoded_elements\":%llu,\"cache_owned_bytes\":%llu,\"cache_payload_bytes\":%llu,"
+            "\"transient_map_entries\":%llu,\"transient_map_buckets\":%llu,\"transient_map_minimum_bytes\":%llu}\n",
+            (unsigned long long) n, (unsigned long long) unique, (unsigned long long) (impl_->raw_hits - hits),
+            (unsigned long long) (impl_->raw_misses - misses), (unsigned long long) ((impl_->raw_misses - misses) * PLE_HEAD_DIM),
+            (unsigned long long) (n * PLE_HEAD_DIM), (unsigned long long) (n * PLE_HEAD_DIM),
+            (unsigned long long) impl_->raw_cache.owned_bytes(), (unsigned long long) impl_->raw_cache.payload_bytes(),
+            (unsigned long long) first.size(), (unsigned long long) first.bucket_count(),
+            (unsigned long long) (first.size() * sizeof(decltype(first)::value_type) + first.bucket_count() * sizeof(void*)));
+    return true;
+}
+
+float PleTable::fp8_scale() const { return impl_->scale; }
+
 void PleTable::set_injected_delay_us(double us) { impl_->reader.set_injected_delay_us(us); }
 
 std::string PleTable::io_report() const {
+    if (impl_->mode != PleIo::Direct && impl_->raw_cache.enabled()) {
+        std::lock_guard<std::mutex> lock(impl_->raw_mutex);
+        return "PLE raw cache owned=" + std::to_string(impl_->raw_cache.owned_bytes()) +
+               " payload=" + std::to_string(impl_->raw_cache.payload_bytes()) +
+               " hits=" + std::to_string(impl_->raw_hits) + " backing_rows=" + std::to_string(impl_->raw_misses) +
+               " batch_occurrences=" + std::to_string(impl_->raw_occurrences) + " batch_fetches=" + std::to_string(impl_->raw_fetches);
+    }
     if (impl_->mode != PleIo::Direct || !impl_->reader.is_open()) return {};
     const strata::ngram::ReaderStats s = impl_->reader.snapshot();
     char buf[400];

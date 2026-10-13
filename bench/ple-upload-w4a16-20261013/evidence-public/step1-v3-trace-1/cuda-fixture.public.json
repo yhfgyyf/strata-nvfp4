@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "pinned_and_pageable": true,
+  "three_chunks_and_requests": true,
+  "tail": 129,
+  "failure_modes": 3,
+  "cancellation": true,
+  "canaries": true,
+  "binary_sha256": "30b9edf0c757b4ecf45a840ee0fdf9ab631cb350ff380657a027d22a9d14802f"
+}

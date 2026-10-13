@@ -1,0 +1,82 @@
+{
+  "label": "W4A16-raw-A1-cold-32768-0",
+  "input_tokens": 32768,
+  "reused": 0,
+  "read_tokens": 32768,
+  "prompt_ms": 9447,
+  "prefill_tps": 3468.6143749338416,
+  "output_tokens": 512,
+  "full_output": true,
+  "decode_native_tps": 92.6,
+  "decode_delta_tps": 92.83103761292679,
+  "ttft_s": 9.525724527891725,
+  "elapsed_s": 15.04145115497522,
+  "native": {
+    "projection": null,
+    "time": 1791869211.6229436,
+    "duration_s": 15.0,
+    "finish": "length",
+    "prompt_tokens": 32768,
+    "reused": 0,
+    "output_tokens": 512,
+    "prompt_total": 32768,
+    "prompt_read": 32768,
+    "reasoning_recoveries": 0,
+    "reasoning_repeat_coverage": 0.0,
+    "engine_generated": 512,
+    "prompt_ms": 9446.7,
+    "decode_ms": 5528.3,
+    "decode_tok_s": 92.6,
+    "hit_rate": 0.931,
+    "pcie_share": 0.0,
+    "ram_blobs": 18581,
+    "file_blobs": 0,
+    "file_mb": 0,
+    "drafts_offered": 342,
+    "drafts_accepted": 263
+  },
+  "quality": {
+    "score": 5,
+    "maximum": 6,
+    "correct": {
+      "arithmetic": true,
+      "code_result": false,
+      "translation": true,
+      "early": true,
+      "middle": true,
+      "late": true
+    },
+    "json_prefix_present": true,
+    "periodic_tail": false,
+    "long_digit_loop": false,
+    "longest_digit_run": 0,
+    "tool_calls": 0,
+    "valid_tool_json": 0,
+    "characters": 2528
+  },
+  "output_sha256": "cbccb3706205f5202e95e894f7531e587f956e8fe8ca65b50293b9e3b8da2e0f",
+  "payload_sha256": "ad9f3102a66c7a4d7314afb2eff59dd9e1d312ba632aacb51698e0df4049696e",
+  "config_sha256": "19a526e97489a54f245e97a48e64d3f86dfe62edcb90930fc8fd9bde037d8d72",
+  "binary_sha256": "9f6b204ac409ccf3d1b15a184ede0717dc8f0f6d8571542e8481f906acdd3f35",
+  "profile_sha256": "8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf",
+  "native_prompt_segments": [
+    [
+      32768,
+      0,
+      32768,
+      9447
+    ]
+  ],
+  "counters_delta": {
+    "major_faults": 2358,
+    "minor_faults": 86227,
+    "cpu_ticks": 10682,
+    "read_bytes": 9658368
+  },
+  "ledger": [],
+  "host_memory_kib": {
+    "VmHWM": 48066964,
+    "VmRSS": 47664512,
+    "MemAvailable": 13925288
+  }
+}

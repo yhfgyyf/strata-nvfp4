@@ -1,0 +1,77 @@
+{
+  "label": "production-32768",
+  "input_tokens": 32768,
+  "reused": 0,
+  "read_tokens": 32768,
+  "prompt_ms": 9084,
+  "prefill_tps": 3607.2214883311317,
+  "output_tokens": 512,
+  "full_output": true,
+  "decode_native_tps": 94.6,
+  "decode_delta_tps": 94.84376452059284,
+  "ttft_s": 9.165994239971042,
+  "elapsed_s": 14.564969481900334,
+  "native": {
+    "projection": null,
+    "time": 1791885186.4879742,
+    "duration_s": 14.5,
+    "finish": "length",
+    "prompt_tokens": 32768,
+    "reused": 0,
+    "output_tokens": 512,
+    "prompt_total": 32768,
+    "prompt_read": 32768,
+    "reasoning_recoveries": 0,
+    "reasoning_repeat_coverage": 0.0,
+    "engine_generated": 512,
+    "prompt_ms": 9083.6,
+    "decode_ms": 5410.9,
+    "decode_tok_s": 94.6,
+    "hit_rate": 0.937,
+    "pcie_share": 0.0,
+    "ram_blobs": 18167,
+    "file_blobs": 0,
+    "file_mb": 0,
+    "drafts_offered": 365,
+    "drafts_accepted": 257
+  },
+  "quality": {
+    "score": 5,
+    "maximum": 6,
+    "correct": {
+      "arithmetic": true,
+      "code_result": false,
+      "translation": true,
+      "early": true,
+      "middle": true,
+      "late": true
+    },
+    "json_prefix_present": true,
+    "periodic_tail": false,
+    "long_digit_loop": false,
+    "longest_digit_run": 0,
+    "tool_calls": 0,
+    "valid_tool_json": 0,
+    "characters": 2557
+  },
+  "output_sha256": "1e8063e53d436e02584f5d4b822d690d6d467742870b0a3de2d9776eddc505e2",
+  "payload_sha256": "ad9f3102a66c7a4d7314afb2eff59dd9e1d312ba632aacb51698e0df4049696e",
+  "config_sha256": "a93493f9f8983c31e75441be5cedc25aa88fd7b0dc212bad823d3696ea3c9b20",
+  "binary_sha256": "4ae23d2d995866b3ddf98525b0de700d3fb48e289135fea39f5643d2cd55af78",
+  "profile_sha256": "8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf",
+  "native_prompt_segments": [
+    [
+      32768,
+      0,
+      32768,
+      9084
+    ]
+  ],
+  "counters_delta": {
+    "major_faults": 1824,
+    "minor_faults": 96555,
+    "cpu_ticks": 10443,
+    "read_bytes": 7471104
+  },
+  "ledger": []
+}

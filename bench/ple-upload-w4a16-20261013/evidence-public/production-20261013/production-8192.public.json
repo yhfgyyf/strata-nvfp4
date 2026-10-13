@@ -1,0 +1,77 @@
+{
+  "label": "production-8192",
+  "input_tokens": 8192,
+  "reused": 0,
+  "read_tokens": 8192,
+  "prompt_ms": 2456,
+  "prefill_tps": 3335.5048859934855,
+  "output_tokens": 512,
+  "full_output": true,
+  "decode_native_tps": 87.1,
+  "decode_delta_tps": 87.3027307243558,
+  "ttft_s": 2.4923321870155632,
+  "elapsed_s": 8.35757067403756,
+  "native": {
+    "projection": null,
+    "time": 1791885177.8533516,
+    "duration_s": 8.3,
+    "finish": "length",
+    "prompt_tokens": 8192,
+    "reused": 0,
+    "output_tokens": 512,
+    "prompt_total": 8192,
+    "prompt_read": 8192,
+    "reasoning_recoveries": 0,
+    "reasoning_repeat_coverage": 0.0,
+    "engine_generated": 512,
+    "prompt_ms": 2456.5,
+    "decode_ms": 5877.1,
+    "decode_tok_s": 87.1,
+    "hit_rate": 0.9,
+    "pcie_share": 0.0,
+    "ram_blobs": 27743,
+    "file_blobs": 0,
+    "file_mb": 0,
+    "drafts_offered": 347,
+    "drafts_accepted": 260
+  },
+  "quality": {
+    "score": 5,
+    "maximum": 6,
+    "correct": {
+      "arithmetic": true,
+      "code_result": false,
+      "translation": true,
+      "early": true,
+      "middle": true,
+      "late": true
+    },
+    "json_prefix_present": true,
+    "periodic_tail": false,
+    "long_digit_loop": false,
+    "longest_digit_run": 0,
+    "tool_calls": 0,
+    "valid_tool_json": 0,
+    "characters": 2545
+  },
+  "output_sha256": "dc7313ba38955666ef20a308603f95a4d5b2120db56a00632d7d0dac85d40882",
+  "payload_sha256": "2b77fa92df9a39e4325064e42bb32aa79c1255c4164c71379627cce78dcc8f4d",
+  "config_sha256": "a93493f9f8983c31e75441be5cedc25aa88fd7b0dc212bad823d3696ea3c9b20",
+  "binary_sha256": "4ae23d2d995866b3ddf98525b0de700d3fb48e289135fea39f5643d2cd55af78",
+  "profile_sha256": "8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf",
+  "native_prompt_segments": [
+    [
+      8192,
+      0,
+      8192,
+      2456
+    ]
+  ],
+  "counters_delta": {
+    "major_faults": 2952,
+    "minor_faults": 48623,
+    "cpu_ticks": 9866,
+    "read_bytes": 12091392
+  },
+  "ledger": []
+}

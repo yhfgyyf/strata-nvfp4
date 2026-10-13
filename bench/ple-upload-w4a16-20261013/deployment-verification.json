@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "sha256": {
+    "evidence-public/production-20261013/api-smoke.public.json": "5d4158017872336d7a7d8e63b10adf33a65451009cacfd8574248d5539d00b87",
+    "evidence-public/production-20261013/backup.public.json": "151142b345a785854c39d815e4925b796513a014c891083e5e835219dcb29073",
+    "evidence-public/production-20261013/capacity.public.json": "7ec231bf212636a65aea11f72b3251cb82644672bdd3c98d60a430046b3409b1",
+    "evidence-public/production-20261013/deployment.public.json": "44ca9de07abcc29e4149dbe1336b6a20434ea3be05f32e5bcf7855ac3cc94b5c",
+    "evidence-public/production-20261013/gateway.public.json": "402c0beffdbfbe9d472c74c43b552236b417b9c0836bc1d3c03815980aad3f40",
+    "evidence-public/production-20261013/gpu_schedule-strata-defaults.patch": "d6d4893155b5f9d8882048b76d5f389cb703199d75b8def1aeafb94afa202e9d",
+    "evidence-public/production-20261013/long-input.public.json": "1b0e0fa5e44c462c803db83e3b4173f09c0d29fb384d9855bc91542f0fa08a1e",
+    "evidence-public/production-20261013/ownership.public.json": "9521116c82d831a53e7008e547cf99aabcc750def26c715f0a0ff53091d13a71",
+    "evidence-public/production-20261013/production-131072.public.json": "8466c67345259cb64f3db146f4072e57889c6c95eb6d7c4f4c37072fada6009c",
+    "evidence-public/production-20261013/production-32768.public.json": "ba685176d355c9cd530ac07ce13694178baec6099a4f189cab7bdf221d63b4d0",
+    "evidence-public/production-20261013/production-8192.public.json": "c9503d395084fe10cb021879bdfbdb5f2e55890639d58b1e36e6e4d726e3e0f3",
+    "evidence-public/production-20261013/progress.public.json": "13429dcdf62f61ba696eb873a351f6dd2f9e677da57a0e24c0bb3f63602c2995",
+    "evidence-public/production-20261013/repo-tests.public.json": "1a885d5e40fab24b5633607b24c452f4611bfa3d3e0b257b73b46c309be5e6fb",
+    "evidence-public/production-20261013/startup.public.json": "93004d12e093baedaf25ec9504d371ee9699073bf515cfe0bad18c99f21c8557"
+  },
+  "native_pid": 3505071,
+  "binary_sha256": "4ae23d2d995866b3ddf98525b0de700d3fb48e289135fea39f5643d2cd55af78",
+  "cold_full_output_samples": 3,
+  "full_context_slots": 2,
+  "scope": "Saved deployment receipt/hash and API/capacity checks; not a new performance comparison"
+}

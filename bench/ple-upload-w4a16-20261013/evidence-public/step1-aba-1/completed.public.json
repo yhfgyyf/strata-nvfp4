@@ -1,0 +1,10 @@
+{
+  "complete": true,
+  "arms": [
+    "A1",
+    "B",
+    "A2"
+  ],
+  "cases": 3,
+  "scope": "W4A16 only; no profiler; INT8 KV retained"
+}

@@ -129,6 +129,7 @@ See [API.md](docs/API.md) for Responses, image and tool-call examples. For acces
 | Speculative decoding | MTP, `--spec 4`, batch MTP |
 | Prefix caching | Enabled |
 | Auxiliary CPU selection | Automatic |
+| PLE uploads / CPU row cache | Early upload, raw FP8 bytes, 64 MiB raw-row cache |
 | Reasoning / tool parsing | Enabled, with loop recovery |
 | Images | Enabled, up to 1024 image tokens |
 
@@ -141,6 +142,7 @@ The installer writes `strata.json`. Data directories, port, context and request 
 - Pack and load NVIDIA ModelOpt NVFP4 weights; retain the original FP8 PLE storage.
 - Add NVFP4 W4A16 fused MoE, CPU expert computation and loader support.
 - Include auxiliary CPU selection, prefill memory/transfer accounting and optional buffer compaction.
+- Upload PLE rows early as raw bytes, expand them to FP32 on the GPU, and cache raw rows on the CPU.
 - Enable reasoning-loop, long-digit-loop and tool-call recovery.
 - Add model-specific installation, data generation and W4A16 R256 defaults.
 

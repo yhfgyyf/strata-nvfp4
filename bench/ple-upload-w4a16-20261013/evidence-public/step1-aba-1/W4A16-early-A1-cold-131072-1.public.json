@@ -1,0 +1,77 @@
+{
+  "label": "W4A16-early-A1-cold-131072-1",
+  "input_tokens": 131072,
+  "reused": 0,
+  "read_tokens": 131072,
+  "prompt_ms": 37219,
+  "prefill_tps": 3521.64217200892,
+  "output_tokens": 512,
+  "full_output": true,
+  "decode_native_tps": 98.6,
+  "decode_delta_tps": 99.0439954948486,
+  "ttft_s": 37.46727156196721,
+  "elapsed_s": 42.64714968181215,
+  "native": {
+    "projection": null,
+    "time": 1791865788.2705064,
+    "duration_s": 42.4,
+    "finish": "length",
+    "prompt_tokens": 131072,
+    "reused": 0,
+    "output_tokens": 512,
+    "prompt_total": 131072,
+    "prompt_read": 131072,
+    "reasoning_recoveries": 0,
+    "reasoning_repeat_coverage": 0.0,
+    "engine_generated": 512,
+    "prompt_ms": 37219.4,
+    "decode_ms": 5192.8,
+    "decode_tok_s": 98.6,
+    "hit_rate": 0.936,
+    "pcie_share": 0.0,
+    "ram_blobs": 17500,
+    "file_blobs": 0,
+    "file_mb": 0,
+    "drafts_offered": 346,
+    "drafts_accepted": 269
+  },
+  "quality": {
+    "score": 5,
+    "maximum": 6,
+    "correct": {
+      "arithmetic": true,
+      "code_result": false,
+      "translation": true,
+      "early": true,
+      "middle": true,
+      "late": true
+    },
+    "json_prefix_present": true,
+    "periodic_tail": false,
+    "long_digit_loop": false,
+    "longest_digit_run": 0,
+    "tool_calls": 0,
+    "valid_tool_json": 0,
+    "characters": 2522
+  },
+  "output_sha256": "17b1ecec7226330402469b03d9243af772c1aae4826e8acc6f9a9d34e7d12d4e",
+  "payload_sha256": "c710c29371be59bbbae9b6e3febe81947c0e5d3a4c79810d9af92a426335cebd",
+  "config_sha256": "ce5bb46f9d714bc76f2fb9504c665a06ce9d5818b4c6eac4ae9b609dc03124b1",
+  "binary_sha256": "71a758dece4752568864b1c1b07b839b700736073a5da401a13af1096e79ebc8",
+  "profile_sha256": "8f59b4aa8873209dff11c11e37bcda9529a1335b724a1afeea37bf6388975baf",
+  "native_prompt_segments": [
+    [
+      131072,
+      0,
+      131072,
+      37219
+    ]
+  ],
+  "counters_delta": {
+    "major_faults": 1180,
+    "minor_faults": 259078,
+    "cpu_ticks": 15703,
+    "read_bytes": 4833280
+  },
+  "ledger": []
+}

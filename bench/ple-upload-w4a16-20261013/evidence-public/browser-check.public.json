@@ -1,0 +1,9 @@
+{
+  "verified": true,
+  "url": "http://127.0.0.1:8892/index.html",
+  "html_sha256": "633fbb1b3775afe0c63f71e7961bdc135eef37c6728d6b4d5d103d6e1442b09c",
+  "v1_and_v3_selector": true,
+  "visible_tables_match_evidence": true,
+  "console_error_entries": 0,
+  "scope": "Codex in-app browser DOM and rendered screenshot checked with CUA"
+}

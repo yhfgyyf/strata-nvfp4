@@ -1,0 +1,22 @@
+{
+  "rows": [
+    {
+      "file": "W4A16-ready-B-numerical-131072.private.bin",
+      "baseline_sha256": "cf34e12a45e614e1c131a62d319582aa94b50b5f5e8410702944803fc425a564",
+      "candidate_sha256": "cf34e12a45e614e1c131a62d319582aa94b50b5f5e8410702944803fc425a564",
+      "bit_equal": true
+    },
+    {
+      "file": "W4A16-ready-B-numerical-32768.private.bin",
+      "baseline_sha256": "56cebe7cc74b4038bbd8f85fee949155d5fc21135ea33cffe938538423a3bdaf",
+      "candidate_sha256": "56cebe7cc74b4038bbd8f85fee949155d5fc21135ea33cffe938538423a3bdaf",
+      "bit_equal": true
+    },
+    {
+      "file": "W4A16-ready-B-numerical-8192.private.bin",
+      "baseline_sha256": "b9b308434c916d844b1e3f9c90d0da5abac7f6e9bfe1f77f8da45c1701fc0510",
+      "candidate_sha256": "b9b308434c916d844b1e3f9c90d0da5abac7f6e9bfe1f77f8da45c1701fc0510",
+      "bit_equal": true
+    }
+  ]
+}

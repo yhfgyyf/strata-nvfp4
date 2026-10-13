@@ -126,12 +126,13 @@ def config(args, pack, mtp, vision):
     env = dict(STRATA_NVFP4_W4A16="1", STRATA_PREFILL_NVFP4="fp16", STRATA_PREFILL_RING="256",
                STRATA_PREFILL_CPU_SHARE="0", STRATA_PCIE_BALANCE="0", STRATA_AUX_CPUS="auto",
                STRATA_WATCHDOG_S="180", STRATA_PLE_MMAP_RANDOM="1", STRATA_NVFP4_FUSED_MOE="2",
+               STRATA_PLE_EARLY_UPLOAD="1", STRATA_PLE_RAW_UPLOAD="1", STRATA_PLE_RAW_CACHE_MIB="64",
                STRATA_PREFILL_DEQUANT_AHEAD="1", STRATA_NVFP4_DEQUANT_FAST="1",
                STRATA_PREFILL_COMPACT_GUH="0", STRATA_PREFILL_NVFP4_FP8="0")
     native = ["--pack", str(pack), "--native", str(pack / "model.stidx"), "--ple-gguf", str(pack / "ple.stidx"),
               "--ple-io", "mmap", "--expert-profile", str(pack / "expert-profile.bin"), "--expert-cache", "auto",
               "--resident-experts", "--prefill", "8192", "--spec", "4", "--max-context", str(args.context),
-              "--kv", "int8", "--pcie-frac", "0", "--vram-reserve-mib", "1536", "--mtp", str(mtp),
+              "--kv", "int8", "--pcie-frac", "0", "--mtp", str(mtp),
               "--batch-mtp", "--spec-min-p", "0.7", "--prompt-cache", "6", "--prompt-cache-tail",
               "--mtp-draft-vocab", str(mtp / "draft_vocab.bin")]
     result = dict(exe=str(ROOT / "build/strata"), args=native, env=env, cwd=str(ROOT),

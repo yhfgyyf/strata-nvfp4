@@ -1,0 +1,205 @@
+{
+  "complete": true,
+  "checks": [
+    {
+      "name": "vision",
+      "usage": {
+        "prompt_tokens": 34,
+        "completion_tokens": 2,
+        "total_tokens": 36,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "tool_json",
+      "usage": {
+        "prompt_tokens": 275,
+        "completion_tokens": 17,
+        "total_tokens": 292,
+        "prompt_tokens_details": {
+          "cached_tokens": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "name": "prefix-0",
+      "usage": {
+        "input_tokens": 8196,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 128,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 8324
+      },
+      "metrics": {
+        "projection": null,
+        "time": 1791875886.2444348,
+        "duration_s": 3.9,
+        "finish": "length",
+        "prompt_tokens": 8196,
+        "reused": 0,
+        "output_tokens": 128,
+        "prompt_total": 8196,
+        "prompt_read": 8196,
+        "reasoning_recoveries": 0,
+        "reasoning_repeat_coverage": 0.0,
+        "engine_generated": 128,
+        "prompt_ms": 2551.2,
+        "decode_ms": 1341.6,
+        "decode_tok_s": 95.4,
+        "hit_rate": 0.831,
+        "pcie_share": 0.0,
+        "ram_blobs": 10209,
+        "file_blobs": 0,
+        "file_mb": 0,
+        "drafts_offered": 87,
+        "drafts_accepted": 79
+      }
+    },
+    {
+      "name": "prefix-1",
+      "usage": {
+        "input_tokens": 8196,
+        "input_tokens_details": {
+          "cached_tokens": 8189
+        },
+        "output_tokens": 128,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 8324
+      },
+      "metrics": {
+        "projection": null,
+        "time": 1791875890.2038388,
+        "duration_s": 1.1,
+        "finish": "length",
+        "prompt_tokens": 8196,
+        "reused": 8189,
+        "output_tokens": 128,
+        "prompt_total": 8196,
+        "prompt_read": 7,
+        "reasoning_recoveries": 0,
+        "reasoning_repeat_coverage": 0.0,
+        "engine_generated": 128,
+        "prompt_ms": 36.9,
+        "decode_ms": 1101.5,
+        "decode_tok_s": 116.2,
+        "hit_rate": 0.895,
+        "pcie_share": 0.0,
+        "ram_blobs": 6767,
+        "file_blobs": 0,
+        "file_mb": 0,
+        "drafts_offered": 87,
+        "drafts_accepted": 83
+      }
+    },
+    {
+      "name": "context-prime-0",
+      "usage": {
+        "input_tokens": 261624,
+        "input_tokens_details": {
+          "cached_tokens": 0
+        },
+        "output_tokens": 1,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 261625
+      },
+      "payload_sha256": "e7c99e5c264f1f459f05c303c2b5b01d107718ae10ff20ae0ae75bcee1dbb5ce"
+    },
+    {
+      "name": "context-slot-0",
+      "usage": {
+        "input_tokens": 261624,
+        "input_tokens_details": {
+          "cached_tokens": 261617
+        },
+        "output_tokens": 512,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 262136
+      },
+      "payload_sha256": "e7c99e5c264f1f459f05c303c2b5b01d107718ae10ff20ae0ae75bcee1dbb5ce",
+      "quality": {
+        "score": 5,
+        "maximum": 6,
+        "correct": {
+          "arithmetic": true,
+          "code_result": false,
+          "translation": true,
+          "early": true,
+          "middle": true,
+          "late": true
+        },
+        "json_prefix_present": true,
+        "periodic_tail": false,
+        "long_digit_loop": false,
+        "longest_digit_run": 0,
+        "tool_calls": 0,
+        "valid_tool_json": 0,
+        "characters": 2544
+      },
+      "peak_in_flight": 1,
+      "peak_running": 2,
+      "request_overrides": {
+        "stream": false,
+        "strata_prefix": {
+          "tokens": 261592
+        }
+      }
+    },
+    {
+      "name": "context-slot-1",
+      "usage": {
+        "input_tokens": 261624,
+        "input_tokens_details": {
+          "cached_tokens": 261592
+        },
+        "output_tokens": 512,
+        "output_tokens_details": {
+          "reasoning_tokens": 0
+        },
+        "total_tokens": 262136
+      },
+      "payload_sha256": "9595bebd3e22397ef411372cc04f883dd5e1e7170929c06aa86bab2e06d45606",
+      "quality": {
+        "score": 5,
+        "maximum": 6,
+        "correct": {
+          "arithmetic": true,
+          "code_result": false,
+          "translation": true,
+          "early": true,
+          "middle": true,
+          "late": true
+        },
+        "json_prefix_present": true,
+        "periodic_tail": false,
+        "long_digit_loop": false,
+        "longest_digit_run": 0,
+        "tool_calls": 0,
+        "valid_tool_json": 0,
+        "characters": 2631
+      },
+      "peak_in_flight": 1,
+      "peak_running": 2,
+      "request_overrides": {
+        "stream": false,
+        "strata_prefix": {
+          "tokens": 261592
+        }
+      }
+    }
+  ],
+  "peak_in_flight": 1
+}
