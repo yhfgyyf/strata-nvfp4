@@ -56,7 +56,7 @@ Inputs were synthetic Chinese, English and code prompts. Decode speed varies wit
 
 ### 256K context comparison
 
-October 14, 2026: one client, 512 output tokens, zero prefix reuse, three runs per input length, arithmetic means. Both configurations use a 262144-token context limit, W4A16, R256, chunk 8192 and INT8 KV. No Nsight or GPU profiler was used during speed tests.
+October 14, 2026: one client, 512 output tokens, zero prefix reuse, three runs per input length, arithmetic means. Both configurations use a 262144-token context limit, W4A16, R256, chunk 8192 and INT8 KV.
 
 | Input tokens | Two slots: prefill | Two slots: decode | One slot: prefill | One slot: decode |
 |---:|---:|---:|---:|---:|
